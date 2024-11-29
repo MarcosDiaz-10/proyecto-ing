@@ -4,7 +4,7 @@
 
 - Génesis Montilla
 - Jose Barrios
-- Mauricio Gónzales
+- Mauricio Gonzáles
 - Marcos Díaz
 
 ## Modelo de dominio
