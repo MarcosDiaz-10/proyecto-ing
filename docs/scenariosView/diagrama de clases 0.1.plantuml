@@ -1,0 +1,45 @@
+@startuml diagrama
+
+
+class Espacio_Virtual
+class Usuario
+together{
+class Personal
+class Estudiante
+class Profesor
+class Moderador
+}
+together{
+
+class Publicacion
+class Taller
+class Seminario
+class Proyecto_Investigacion
+}
+class Calendario
+class Tema_De_Interes
+class Comentarios
+
+Espacio_Virtual *-- Publicacion
+Espacio_Virtual *-- Usuario
+Usuario <|-- Personal
+Usuario <|-- Estudiante
+Usuario <|-left- Moderador
+Usuario <|-- Profesor
+Publicacion -- Tema_De_Interes
+Publicacion <|-- Taller
+Publicacion <|-- Seminario
+Publicacion <|-- Proyecto_Investigacion
+Publicacion *-- Comentarios 
+Publicacion o-- Calendario
+' Quizás pueda existir una publicación sin comentarios
+
+Estudiante -- Taller : organiza
+Estudiante -- Seminario : organiza
+Profesor -- Proyecto_Investigacion : publica
+Publicacion -- Moderador : modera
+Moderador -left- Comentarios : modera
+Usuario -- Publicacion : interactúa
+
+
+@enduml

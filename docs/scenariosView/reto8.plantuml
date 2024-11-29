@@ -1,0 +1,63 @@
+@startuml
+
+state Conectado
+state c1 <<choice>>
+state Registrando_Usuario
+state Iniciando_Sesion
+state c2 <<choice>>
+state fork1 <<fork>>
+state Revisar_Publicaciones
+state c3  <<choice>>
+state Publicacion_Comentada
+state Revisar_Calendario
+state Revisar_Notificaciones
+state fork2 <<fork>>
+state c4 <<choice>>
+state Crear_Publicacion
+state c5 <<choice>>
+state Cerrando_Sesion
+
+[*] --> Conectado : Conectándose a \n la plataforma
+
+Conectado --> c1 : ¿Registrarse?
+
+c1 --> Registrando_Usuario : Sí
+Registrando_Usuario ---> En_Pagina_Principal : Usuario Registrado
+c1 --> Iniciando_Sesion : No
+Iniciando_Sesion --> c2 : ¿Datos validados?
+
+c2 --> Conectado : No
+c2 --> En_Pagina_Principal : Sí
+
+En_Pagina_Principal ---> c5 : ¿Cerrar Sesión?
+c5 -----> Cerrando_Sesion : Sí
+c5 --> fork1 : No
+fork1 ---> Revisar_Notificaciones : Mostrar Notificaciones
+fork1 ---> Revisar_Publicaciones : Mostrar Publicaciones
+fork1 ---> Revisar_Calendario : Mostrar Calendario
+
+Revisar_Publicaciones --> c3 : ¿Hacer Comentario?
+c3 --> Publicacion_Comentada : Sí
+c3 --> fork2 : No
+Publicacion_Comentada ---> fork2
+Revisar_Notificaciones --> fork2
+Revisar_Calendario --> fork2
+
+
+fork2 --> c4 : ¿Hacer Publicación?
+
+c4 --> Crear_Publicacion: Sí
+c4 --> En_Pagina_Principal : No
+Crear_Publicacion --> En_Pagina_Principal : Volviendo a la Página Principal
+
+Cerrando_Sesion --> [*]
+
+
+
+
+
+
+
+
+
+@enduml
