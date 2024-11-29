@@ -1,8 +1,8 @@
-# Nombre Proyecto
+# IngSoc
 
 ## Integrantes
 
-- Genesis Montilla
+- Génesis Montilla
 - Jose Barrios
 - Mauricio Gonzales
 - Marcos Díaz
