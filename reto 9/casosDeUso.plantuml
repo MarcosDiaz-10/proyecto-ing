@@ -1,0 +1,34 @@
+@startuml casosDeUso
+left to right direction
+actor "Usuario" as u
+actor "Moderador" as m
+
+
+rectangle IngSoc{
+    usecase "Registrarse" as CU1
+    usecase "Iniciar Sesion" as CU2
+    Usecase "Crear Publicacion" as CU3
+    usecase "Revisar Publicaciones" as CU4
+    usecase "Comentar Publicacion" as CU5
+    usecase "Cerrar Sesion" as CU6
+    usecase "Revisar Calendario" as CU7
+    usecase "Eliminar Publicacion" as CU8
+    usecase "Eliminar Comentario" as CU9
+}
+
+
+u --> CU1
+u --> CU2
+u --> CU3
+u --> CU4
+u --> CU5
+u --> CU6
+u --> CU7
+m --> CU8
+m --> CU9
+
+
+u <|-up- m
+
+
+@enduml
