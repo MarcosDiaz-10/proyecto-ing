@@ -15,10 +15,12 @@
 
 ## Modelo de Casos de Uso
 
+### Diagrama Caso de uso
 ![Imagen de WhatsApp 2024-12-05 a las 22 53 28_ea2aa8e5](https://github.com/user-attachments/assets/bf382a52-f4a2-422f-8914-df35dae1d6e8)
+### Diagrama Estado
 ![Imagen de WhatsApp 2024-12-05 a las 22 53 28_6f5f05bb](https://github.com/user-attachments/assets/6802a780-4996-4834-94a8-a72dff741a3b)
 
-
+### Prototipo de la interfaz
 ![Registro](https://github.com/user-attachments/assets/09d47718-0995-43be-bd14-3e1704c0ced6)
 ![Iniciar Sesión](https://github.com/user-attachments/assets/3db4b5dc-d58d-4f9b-8a33-09c9755a7df2)
 ![Pagina Principal](https://github.com/user-attachments/assets/6aa85a16-430f-4824-984b-fad8b7455b5d)
