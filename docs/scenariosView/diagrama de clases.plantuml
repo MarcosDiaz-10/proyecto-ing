@@ -1,0 +1,55 @@
+@startuml diagrama
+
+skinparam groupInheritance 4
+
+class Espacio_Virtual
+class Usuario
+together{
+class Personal
+class Estudiante
+class Profesor
+class Moderador
+}
+class Publicacion
+together{
+class Taller
+class Seminario
+class Grupo_De_Estudio
+class Club
+class Proyecto_Investigacion
+class Tema_De_Interes
+class Anuncio_Evento_Institucional
+}
+class Calendario
+class Comentarios
+
+Espacio_Virtual *--- "1 .. *" Publicacion
+Espacio_Virtual *--- "1 .. *" Usuario
+Usuario <|-- Personal
+Usuario <|-right- Estudiante
+Usuario <|-left- Moderador
+Usuario <|-- Profesor
+Publicacion "1" -- "1 .. *" Tema_De_Interes : tiene
+Publicacion <|-- Taller
+Publicacion <|-- Seminario
+Publicacion <|-right- Proyecto_Investigacion
+Publicacion <|-- Club
+Publicacion <|-- Grupo_De_Estudio
+Publicacion <|-- Anuncio_Evento_Institucional
+Publicacion "1" *-- "*" Comentarios :tiene
+Publicacion "1" o-left- "1 .. *" Calendario : asociada
+' Quizás pueda existir una publicación sin comentarios
+
+Estudiante "1" --- "*" Taller : organiza
+Estudiante "1" --- "*" Seminario : organiza
+Estudiante "1" -down- "*" Grupo_De_Estudio : organiza
+Estudiante "1" -- "*" Club : organiza
+Profesor -- Proyecto_Investigacion : publica
+Publicacion "*" -- "1 .. *" Moderador : modera
+Moderador "1 .. *" -left- "*" Comentarios : moderan
+Usuario "1" -- "*" Publicacion : interactúa/\ncrea
+Personal --- Anuncio_Evento_Institucional : publica
+
+
+
+@enduml
