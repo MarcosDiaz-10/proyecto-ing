@@ -14,6 +14,8 @@ rectangle IngSoc{
     usecase "Revisar Calendario" as CU7
     usecase "Eliminar Publicacion" as CU8
     usecase "Eliminar Comentario" as CU9
+    usecase "Eliminar Usuario" as CU10
+    usecase "Editar Usuario" as CU11
 }
 
 
@@ -26,7 +28,9 @@ u --> CU6
 u --> CU7
 m --> CU8
 m --> CU9
-
+u --> CU10
+m --> CU10
+u --> CU11
 
 u <|-up- m
 
