@@ -1,0 +1,37 @@
+@startuml Diagrama de clases de modelo
+
+allow_mixing
+
+
+actor Usuario 
+
+class "Vista Crear Publicación"  {
+    + Imagen JPanel
+    + Titulo JLabel
+    + Contenido JLabel
+    + Subir JButton
+    + AdjuntarInformacion()
+    + PasarInformacion()
+}
+
+class "Controlador de Publicación"  {
+    + Imagen String
+    + Titulo String
+    + Contenido String
+    + CrearPublicacion()
+    + VerificarDatos()
+}
+
+class "Publicación"  {
+    + Imagen String
+    + Titulo String
+    + Contenido String
+    + NotificarPublicacion()
+
+}
+
+Usuario - "Vista Crear Publicación"
+"Vista Crear Publicación" - "Controlador de Publicación"  
+ "Controlador de Publicación" -"Publicación"
+
+@enduml

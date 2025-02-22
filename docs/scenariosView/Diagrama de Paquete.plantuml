@@ -1,0 +1,108 @@
+@startuml "Diagrama de paquetes"
+
+package "Vista" {
+    class VistaRegistro{
+        +validarDatos()
+    } 
+
+    class VistaInicioSesion{
+        +inicioSesion()
+    }
+
+    class VistaCrearPublicacion{
+        +crearPublicacion()
+    }
+
+    class VistaUsuario{
+        +peticionEliminarUsuario()
+    }
+
+    class VistaPaginaPrincipal{
+        +irACrearPublicacion()
+        +irAUsuario()
+        +irAPublicacion()
+        +irACalendario()
+    }
+
+    class VistaPublicacion{
+        +peticionEliminarPublicacion()
+    }
+
+    class VistaCalendario{
+        +solicitarCalendario()
+    }
+
+    VistaPaginaPrincipal -- VistaCalendario
+}
+
+
+package "Controlador" {
+    class ControladorRegistro{
+        +registrarUsuario()
+        +reportarRegistro()
+    }
+
+    class ControladorInicioSesion{
+        +validarDatos()
+        +reportarInicioExitoso()
+    }
+
+    class ControladorCrearPublicacion{
+        +subirPublicacion()
+        +publicacionExitosa()
+    }
+
+    class ControladorEliminarUsuario{
+        +obtenerUsuario()
+        +eliminarUsuario()
+        +eliminacionExitosa()
+    }
+
+    class ControladorEliminarPublicacion{
+        +obtenerPublicacion()
+        +eliminarPublicacion()
+        +eliminacionExitosa()
+    }
+
+ 
+}
+
+package "Entidad" {
+    class Usuario{
+        +nombre
+        +correo
+        +contrasena
+        +fechaNacimiento
+        +genero
+        +telefono
+        +foto
+    }
+
+    class Publicacion{
+        +titulo
+        +descripcion
+        +fecha
+        +hora
+        +foto
+    }
+
+    class Calendario{
+        +fecha
+        +hora
+        +descripcion
+    }
+    
+
+
+}
+
+package "Vista" {}
+package "Controlador"{}
+package "Entidad"{}
+
+
+Vista ..> Controlador
+Controlador ..> Entidad
+
+
+@enduml

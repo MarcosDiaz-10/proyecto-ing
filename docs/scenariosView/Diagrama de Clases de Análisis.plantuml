@@ -1,0 +1,119 @@
+@startuml diagrama de clases de analisis
+
+class Publicacion{
+    -Image imagen
+    -String texto
+}
+
+class Usuario{
+
+    -String nombre
+    -int edad
+    -String escuela
+    -String cedula
+    -String correo
+    -String estatus
+
+    +retornarUsuario()
+}
+
+class Calendario{
+    -Date fecha
+    -String nombre
+    -String evento
+}
+
+class VistaRegistro{
+
+    +validarDatos()
+}
+
+class ControladorRegistro{
+
+    +registrarUsuario()
+    +reportarRegistro()
+}
+
+class VistaInicioSesion{
+
+    +inicioSesion()
+}
+
+class ControladorInicioSesion{
+
+    +validarDatos()
+    +reportarInicioExitoso()
+}
+
+class VistaCrearPublicacion{
+
+    +crearPublicacion()
+}
+
+class ControladorCrearPublicacion{
+    
+    +subirPublicacion()
+    +publicacionExitosa()
+}
+
+class VistaUsuario{
+
+    +peticionEliminarUsuario()
+}
+
+class ControladorEliminarUsuario{
+
+    +obtenerUsuario()
+    +eliminarUsuario()
+    +eliminacionExitosa()
+}
+
+class VistaPaginaPrincipal{
+
+    +irACrearPublicacion()
+    +irAUsuario()
+    +irAPublicacion()
+    +irACalendario()
+}
+
+class VistaPublicacion{
+
+    +peticionEliminarPublicacion()
+}
+
+class ControladorEliminarPublicacion{
+
+    +obtenerPublicacion()
+    +eliminarPublicacion()
+    +eliminacionExitosa()
+}
+
+class VistaCalendario{
+
+    +solicitarCalendario()
+}
+
+class ControladorCalendario{
+
+    +recuperarCalendario()
+    +mostrarCalendario()
+}
+
+
+Publicacion -- ControladorEliminarPublicacion
+Publicacion -- VistaCrearPublicacion
+Publicacion -- VistaPublicacion
+Usuario -- ControladorEliminarUsuario
+Usuario -- ControladorRegistro
+Usuario -- ControladorInicioSesion
+Usuario -- VistaUsuario
+Calendario -- VistaCalendario
+Calendario -- ControladorCalendario
+VistaRegistro -- ControladorRegistro
+VistaPaginaPrincipal -- ControladorCrearPublicacion
+VistaPaginaPrincipal -- ControladorEliminarPublicacion
+VistaPaginaPrincipal -- ControladorEliminarUsuario
+VistaPaginaPrincipal -- VistaCalendario
+VistaInicioSesion -- ControladorInicioSesion
+VistaCrearPublicacion -- ControladorCrearPublicacion
+@enduml

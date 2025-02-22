@@ -1,0 +1,15 @@
+@startuml diagrama de clases de analisis UC3 - Crear Publicación
+
+
+
+
+package "Vista"
+package "Controlador"
+package "Entidad"
+
+
+Vista ..> Controlador
+Controlador ..> Entidad
+
+
+@enduml
