@@ -26,3 +26,7 @@
 ![Pagina Principal](https://github.com/user-attachments/assets/6aa85a16-430f-4824-984b-fad8b7455b5d)
 ![Crear publicacion](https://github.com/user-attachments/assets/13a07065-6dc5-42aa-9528-d947c74e3f51)
 ![Comentar Publicación](https://github.com/user-attachments/assets/20cb4ff8-b046-46ef-ac41-5fc5b19836f9)
+
+### Modelo de implementación
+
+Se usó la librería Java.Swing y para correrlo necesita ejecutar el archivo mainview y de allí podrá navegar entre las distintas pantallas
