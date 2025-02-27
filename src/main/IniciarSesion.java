@@ -71,13 +71,7 @@ public class IniciarSesion extends GeneralView {
         login.setBackground(IngSocColor.black);
         login.setForeground(IngSocColor.white);
         login.setBounds(160, 240, 423, 30);
-
-        login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                validateInformation();
-            }
-        });
+        
         ImageIcon IngSocIcon = new ImageIcon("zlogo2redondeado.png");
         // Para escalar
         Image IngSocRedimension = IngSocIcon.getImage();
@@ -120,7 +114,7 @@ public class IniciarSesion extends GeneralView {
         return login;
     }
 
-    private void validateInformation() {
+    public boolean validateInformation() {
 
         Boolean exist = false;
 
@@ -131,31 +125,33 @@ public class IniciarSesion extends GeneralView {
         if (Name.length() < 1) {
             JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ",
                     "Error de Nombre", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
         if (lastname.length() < 1) {
             JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ",
                     "Error de Apellido", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
         if (password_.length() < 1) {
             JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ",
                     "Error de contraseña ", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
-        String ruta = "src/DB/Database.txt";
+        //String ruta = "src/DB/database.txt";
+        String ruta = "database.txt";
 
         try (Scanner scanner = new Scanner(new File(ruta))) {
             // Leer el archivo línea por línea
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine();
+                //Creo que, como muchas páginas, deberiamos guardarlo todo en Mayúsculas de una, porque si no, MAU y mau sería dos usuarios "distintos al registrarse" pero no al ingresar
                 if (linea.toLowerCase().contains(Name.toLowerCase())
                         && linea.toLowerCase().contains(lastname.toLowerCase())
                         && linea.toLowerCase().contains(password_.toLowerCase())) {
-                    JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso",
-                            "Inicio de sesion", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Inicio de sesi\u00F3n exitoso",
+                            "Inicio de sesi\u00F3n", JOptionPane.INFORMATION_MESSAGE);
                     exist = true;
                     break;
                 }
@@ -167,6 +163,9 @@ public class IniciarSesion extends GeneralView {
         if (!exist) {
             JOptionPane.showMessageDialog(this, "Usuario no encontrado",
                     "Error de usuario", JOptionPane.ERROR_MESSAGE);
+                    return false;
+        }else{
+            return true;
         }
 
     }

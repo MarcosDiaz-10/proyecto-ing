@@ -2,6 +2,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
@@ -28,13 +29,13 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setTitle("eyy");
-        // add(loginView,BorderLayout.CENTER);
+        setTitle("IngSoc - La guerra es paz, la libertad es esclavitud, la ignorancia es la fuerza.");
+        add(loginView,BorderLayout.CENTER);
 
         // Debería empezar con loginView pero como no está implementado aún no podemos
         // pasar de login a mainpage, pero tenía que probar main page, por eso esta
         // linea es sólo temporal
-        add(mainPageView, BorderLayout.CENTER);
+        //add(mainPageView, BorderLayout.CENTER);
 
     }
 
@@ -53,15 +54,28 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         } else if (evento.getSource() == loginView.getLoginButton()) {
 
-            System.out.println("Iniciar Sesion");
+            //Esta también debería tener un controlador, etc, misma estrategia, ve primero registro para explicarles Mauricio pq ahí hiciste todas las acotaciones
+            System.out.println("Iniciando Sesion (Verificando datos)");
+            if(loginView.validateInformation()){
+                remove(loginView);
+                add(mainPageView,BorderLayout.CENTER);
+                revalidate();
+                repaint();
+            }
+
 
         } else if (evento.getSource() == registerView.getRegisterButton()) {
 
-            System.out.println("Yendo a Registrarse");
-            remove(registerView);
-            add(loginView, BorderLayout.CENTER);
-            revalidate();
-            repaint();
+            //De la misma forma, sin embargo, el método saveInformation debería ser parte de una clase tipo controlador, pues es, él a fin de cuentas, quién se encarga de esa lógica
+            //La vista es sólo la vista, no debería tener dentro de sí el método para manejar eso, creo
+            
+            if(registerView.saveInformation()){
+                System.out.println("Yendo a Iniciar Sesión");
+                remove(registerView);
+                add(loginView, BorderLayout.CENTER);
+                revalidate();
+                repaint();
+            }
 
         } else if (evento.getSource() == mainPageView.getCloseSessionButton()) {
 

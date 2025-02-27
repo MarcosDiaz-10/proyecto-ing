@@ -105,7 +105,7 @@ public class IngSocFrame{
 
     public static void main(String args[]){
 
-        System.out.println("dios");
+        System.out.println("Frame Inicializado");
 
     }
 

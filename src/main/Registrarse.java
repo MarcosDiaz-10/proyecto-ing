@@ -6,13 +6,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Registrarse extends GeneralView {
-    private JTextFieldCustom firstName, lastName, school, password, repeatPassword;
+    private JTextFieldCustom firstName, lastName, password, repeatPassword;
     private JButton register;
     private JLabel registerTitleLabel, firstNameLabel, lastNameLabel, schoolLabel, rol, passwordLabel,
             repeatPasswordLabel, IngSocLogo;
     private JPanel internalView;
     private ButtonGroup buttonGroup;
     private JRadioButton professor, student, personel;
+    private JComboBox school;
 
     public Registrarse() {
         initializeComponents();
@@ -45,8 +46,16 @@ public class Registrarse extends GeneralView {
         setLabel(schoolLabel, "Escuela", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
         schoolLabel.setBounds(160, 270, 50, 25);
 
-        school = new JTextFieldCustom("Escuela");
+        school = new JComboBox();
         school.setBounds(160, 300, 200, 30);
+        school.addItem("Biolog\u00EDa");
+        school.addItem("Computaci\u00F3n");
+        school.addItem("F\u00EDsica");
+        school.addItem("Qu\uu00EDmica");
+        school.addItem("Matem\u00E1tica");
+        school.addItem("Geoqu\uu00EDmica");
+
+
 
         rol = new JLabel();
         setLabel(rol, "Rol", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
@@ -64,30 +73,23 @@ public class Registrarse extends GeneralView {
         buttonGroup.add(personel);
 
         passwordLabel = new JLabel();
-        setLabel(passwordLabel, "Contraseña", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
+        setLabel(passwordLabel, "Contrase\u00F1a", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
         passwordLabel.setBounds(160, 370, 100, 25);
 
-        password = new JTextFieldCustom("Contraseña");
+        password = new JTextFieldCustom("Contrase\u00F1a");
         password.setBounds(160, 400, 423, 30);
 
         repeatPasswordLabel = new JLabel();
-        setLabel(repeatPasswordLabel, "Repetir Contraseña", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
+        setLabel(repeatPasswordLabel, "Repetir Contrase\u00F1a", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
         repeatPasswordLabel.setBounds(160, 440, 150, 25);
 
-        repeatPassword = new JTextFieldCustom("Repetir Contraseña");
+        repeatPassword = new JTextFieldCustom("Repetir Contrase\u00F1a");
         repeatPassword.setBounds(160, 470, 423, 30);
 
         register = new JButton("Registrarse");
         register.setBackground(IngSocColor.black);
         register.setForeground(IngSocColor.white);
         register.setBounds(160, 510, 423, 30);
-
-        register.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveInformation();
-            }
-        });
 
         ImageIcon IngSocIcon = new ImageIcon("zlogo2redondeado.png");
         Image IngSocRedimension = IngSocIcon.getImage();
@@ -135,58 +137,57 @@ public class Registrarse extends GeneralView {
         return "No especificado";
     }
 
-    private void saveInformation() {
-        String Name = firstName.getText();
-        String lastname = lastName.getText();
-        String school_ = school.getText();
-        String rol = getSelectedRole();
-        String password_ = password.getText();
-        String repeatpassword = repeatPassword.getText();
+    public boolean saveInformation() {
 
-        if (Name.length() < 1) {
+        String firstNameString = firstName.getText();
+        String lastNameString = lastName.getText();
+        //Esto quizás se pueda hacer algo como JButtonGroup.getSElection() para obtener el botón directamente y ahorrarnos el método
+        String rolString = getSelectedRole();
+        String passwordString = password.getText();
+        String repeatPasswordString = repeatPassword.getText();
+
+        if (firstNameString.length() < 1) {
             JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ",
                     "Error de Nombre", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
-        if (lastname.length() < 1) {
+        if (lastNameString.length() < 1) {
             JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ",
                     "Error de Apellido", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
-        if (school_.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar una escuela ",
-                    "Error de Escuela", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (rol.equals("No especificado")) {
+        if (rolString.equals("No especificado")) {
             JOptionPane.showMessageDialog(this, "Tiene que ingresar un rol ",
                     "Error de Escuela", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
-        if (password_.length() < 1) {
+        if (passwordString.length() < 1) {
             JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ",
                     "Error de contraseña ", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
-        if (!password_.equals(repeatpassword)) {
+        if (!passwordString.equals(repeatPasswordString)) {
             JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden. Intente nuevamente ",
                     "Error de Contraseña", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
-        String informacion = Name + "," + lastname + "," + school_ + "," + rol + "," + password_ + "," + repeatpassword
-                + "\n";
-        try (FileWriter writer = new FileWriter("src/DB/Database.txt", true)) {
+        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-" + school.getSelectedItem() + "-" + rolString + '\n';
+        /*try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) {*/
+        try (FileWriter writer = new FileWriter("database.txt", true)) {
             writer.write(informacion);
-            JOptionPane.showMessageDialog(this, "Información guardada con éxito");
+            JOptionPane.showMessageDialog(this, "Informaci\u00F3n guardada con éxito");
+            return true;
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar la información: " + ex.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n: " + ex.getMessage(), "Error",
+            JOptionPane.ERROR_MESSAGE);
+            return false;
         }
+
+        //De nevo, quizá esta función podría ser booleana y así poder manejar bien el cambio de pantallas
     }
 
     public static void main(String args[]) {
