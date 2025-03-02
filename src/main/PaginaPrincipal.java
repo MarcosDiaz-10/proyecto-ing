@@ -18,6 +18,7 @@ import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PushbackReader;
 import java.io.BufferedReader;
 
 
@@ -33,10 +34,14 @@ public class PaginaPrincipal extends GeneralView{
     //Necesitaremos una clase VistaPublicación o algo, con un JPanel sea como tal lo que se muestra a partir de la entidad Publicación
     //Estas VistaPublicación estarían en el postScroll que debería de funcionar e ir bajando, y no sé si ver
     private BufferedReader readerIndex;
-    private ArrayList<PostFrame> postCascade; 
+    private ArrayList<PostFrame> postCascade;
+    private GridBagConstraints postConstraints;
+    private boolean areTherePost; //Esta variable debera ir probablemente en el controlador
 
 
     public PaginaPrincipal(){
+
+        System.out.println("vaya camina por arriba el mambo");
 
         initializeComponents();
 
@@ -50,7 +55,10 @@ public class PaginaPrincipal extends GeneralView{
 
     private void initializeComponents(){
 
+
         internalView = new JPanel();
+
+        areTherePost = true;
 
         closeSession = new JButton("Cerrar Sesi\u00F3n");
         closeSession.setBackground(IngSocColor.black);
@@ -63,71 +71,50 @@ public class PaginaPrincipal extends GeneralView{
 
 
         postCascade = new ArrayList<PostFrame>();
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10,0,50,0);
+        postConstraints = new GridBagConstraints();
+        postConstraints.insets = new Insets(10,0,50,0);
 
         try {
             readerIndex = new BufferedReader(new FileReader("postDatabase.txt"));
             postCascade = new ArrayList<PostFrame>();
 
+            for(int i=0; i<2; i++){
 
-            PostFrame aux = new PostFrame(readerIndex);
-            postCascade.add(aux);
-            postFeed.add(aux,constraints);
+                PostFrame aux = new PostFrame(readerIndex);
+                postCascade.add(aux);
+                postConstraints.gridx = 0;
+                postConstraints.gridy= i;
+                postFeed.add(aux,postConstraints);
+                //aux.getComment().addActionListener(); No sé cómo hacer que ésto funcione
+
+                readerIndex.mark(20);
+                readerIndex.readLine();
+                if(readerIndex == null){
+                    System.out.println("Nada");
+                    areTherePost = false;
+                }
+                readerIndex.reset();
+
+
+            }
 
 
         } catch (IOException e) {
             System.out.println("Error al abrir el archivo desde Pagina Principal");
         }
 
-        /*for(int i=0;i<2;i++){
-
-            PostFrame aux = new PostFrame(String.valueOf(i));
-            postCascade.add(aux);
-            constraints.gridy = i;
-            postFeed.add(aux,constraints);
-
-        }*/
-
-
         //Esto es sólo temporal para probar hoy, si funciona, a la principal también sin duda
         postScrollBar = postScroll.getVerticalScrollBar();
-        postScrollBar.setUnitIncrement(20);//Para la rueda del ratón
-        postScrollBar.setBlockIncrement(20);//Para las flechitas de arriba/abajo
+        postScrollBar.setUnitIncrement(30);//Para la rueda del ratón
+        postScrollBar.setBlockIncrement(30);//Para las flechitas de arriba/abajo
 
-        
-        postScrollBar.addAdjustmentListener(new AdjustmentListener() {
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                if (!postScrollBar.getValueIsAdjusting()) {
-                    int extent = postScrollBar.getModel().getExtent();
-                    int maximum = postScrollBar.getModel().getMaximum();
-                    int value = postScrollBar.getValue();
-
-                    if (value + extent >= maximum) {
-                        System.out.println("Has llegado al final del JScrollPane");
-                        /*
-                        for(int i=0;i<2;i++){
-
-                            PostFrame aux = new PostFrame(String.valueOf(postCascade.size()));
-                            constraints.gridy = postCascade.size();
-                            constraints.gridx=0;
-                            postCascade.add(aux);
-                            postFeed.add(aux,constraints);
-                
-                        }*/
-
-                    }
-                }
-            }
-        });
 
         //MAS O MENOS AQUI  TERMINAN
 
 
         postFeed.setBounds(0,0,100,100);
         postScroll.setBounds(300,20,450,660);
-        //postScroll.setBorder(null); CON ESTO LE PODEMOS QUITAR EL BORDE PERO POR AHORA PARA SABER DONDE ESTA
+        postScroll.setBorder(null); //CON ESTO LE PODEMOS QUITAR EL BORDE PERO POR AHORA PARA SABER DONDE ESTA
 
         calendar = new JPanel();
         calendar.setOpaque(false);
@@ -140,11 +127,6 @@ public class PaginaPrincipal extends GeneralView{
         post.setBackground(IngSocColor.black);
         post.setForeground(IngSocColor.white);
         post.setBounds(70,400,160,45);
-
-
-
-
-
 
     }
 
@@ -160,12 +142,53 @@ public class PaginaPrincipal extends GeneralView{
 
     }
 
+    public void loadPost(){
+
+        if(!areTherePost){
+            System.out.println("Nope");
+            return;
+        }
+
+        for(int i=0; i<2; i++){
+
+            PostFrame aux = new PostFrame(readerIndex);
+            try {
+
+                postCascade.add(aux);
+                postConstraints.gridx = 0;
+                postConstraints.gridy= postCascade.size();
+                postFeed.add(aux,postConstraints);
+
+                readerIndex.mark(20);
+                String line = readerIndex.readLine();
+                if(line == null){
+                    areTherePost = false;
+                    readerIndex.reset();
+                    return;
+                }
+                readerIndex.reset();
+
+
+                
+            } catch (Exception e) {
+                System.out.println("Problema leyendo archivo en P\u00E1gina Principal");
+            }
+
+        }
+
+
+    }
+
     public JButton getCloseSessionButton(){
         return closeSession;
     }
 
     public JButton getPostButton(){
         return post;
+    }
+
+    public JScrollBar getScrollBar(){
+        return postScrollBar;
     }
 
     public static void main(String args[]){

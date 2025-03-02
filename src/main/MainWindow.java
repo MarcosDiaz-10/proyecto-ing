@@ -11,8 +11,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent; // Importa la clase ActionEvent
 import java.awt.event.MouseEvent; // Importa la clase MouseEvent
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
-public class MainWindow extends JFrame implements ActionListener, ChangeListener {
+public class MainWindow extends JFrame implements ActionListener, ChangeListener, AdjustmentListener {
 
     IniciarSesion loginView;
     Registrarse registerView;
@@ -21,21 +23,18 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
     public MainWindow() {
 
+
+        setIconImage(new ImageIcon("zlogo2redondeado.png").getImage());
+
         ingSocColor = new IngSocColor();
 
         initializeLoginView();
         initializeRegisterView();
-        initializeMainPageView();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setTitle("IngSoc - La guerra es paz, la libertad es esclavitud, la ignorancia es la fuerza.");
-        add(loginView,BorderLayout.CENTER);
-
-        // Debería empezar con loginView pero como no está implementado aún no podemos
-        // pasar de login a mainpage, pero tenía que probar main page, por eso esta
-        // linea es sólo temporal
-        //add(mainPageView, BorderLayout.CENTER);
+        add(loginView,BorderLayout.CENTER); 
 
     }
 
@@ -57,6 +56,7 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
             //Esta también debería tener un controlador, etc, misma estrategia, ve primero registro para explicarles Mauricio pq ahí hiciste todas las acotaciones
             System.out.println("Iniciando Sesion (Verificando datos)");
             if(loginView.validateInformation()){
+                initializeMainPageView();//Inicializamos la página principal
                 remove(loginView);
                 add(mainPageView,BorderLayout.CENTER);
                 revalidate();
@@ -93,6 +93,21 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
     }
 
+    public void adjustmentValueChanged(AdjustmentEvent e) {
+
+        if (!mainPageView.getScrollBar().getValueIsAdjusting()) {
+            int extent = mainPageView.getScrollBar().getModel().getExtent();
+            int maximum = mainPageView.getScrollBar().getModel().getMaximum();
+            int value = mainPageView.getScrollBar().getValue();
+
+            if (value + extent >= maximum) {
+                System.out.println("Has llegado al final del JScrollPane");
+                mainPageView.loadPost();
+
+            }
+        }
+    }
+
     public void initializeLoginView() {
 
         loginView = new IniciarSesion();
@@ -120,13 +135,14 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         mainPageView.getCloseSessionButton().addActionListener(this);
         mainPageView.getPostButton().addActionListener(this);
+        mainPageView.getScrollBar().addAdjustmentListener(this);
 
     }
 
     private void initializeFrameButtons(GeneralView view) {
         view.getFrame().getMainPage().addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Ir a Pagina Principal");
+                System.out.println("Ir a P\u00E1gina Principal");
             }
         });
         view.getFrame().getConestPage().addMouseListener(new MouseAdapter() {

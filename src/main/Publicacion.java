@@ -7,6 +7,7 @@ import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.io.PushbackReader;
 import java.io.BufferedReader;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +16,8 @@ import java.awt.event.ActionEvent; // Importa la clase ActionEvent
 import java.awt.event.MouseEvent; // Importa la clase MouseEvent
 import java.io.FileReader;
 import java.io.IOException;
+import java.awt.Image; // Importa la clase Image
+import javax.swing.ImageIcon; 
 
 public class Publicacion{
 
@@ -31,24 +34,33 @@ public class Publicacion{
         classification = new String();
 
         try {
-            classification = reader.readLine();
-            System.out.println(classification);
-            title = reader.readLine();
+            classification = "<html>" + reader.readLine() + "</html>";
+            title = "<html>" + reader.readLine() + "</html>";
     
             hasImage = "1".equals(reader.readLine());
 
             if(hasImage){
                 ImageIcon postImage = new ImageIcon(reader.readLine());
+
+                Image postImageRedimension = postImage.getImage();
+                postImageRedimension = postImageRedimension.getScaledInstance(325, 325, postImageRedimension.SCALE_SMOOTH);
+                postImage = new ImageIcon(postImageRedimension);
+
                 imagen = new JLabel(postImage);
             }
 
             text = new String();
             String line = new String();
             line = reader.readLine();
-            while((line != "-") && (line != null)){
-                text += line;
+            text = "<html>" + line + "</html>";
+            reader.readLine();//Para eliminar el último "-"
+            /*text = "<html>";
+            while((line != null) && (!line.equals("-"))){
+                System.out.println("aksdjhaksjd");
+                text += line + "<br>";
                 line = reader.readLine();
             }
+            text += "</html>";*/
 
 
         } catch (IOException e) {
