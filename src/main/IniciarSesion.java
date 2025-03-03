@@ -114,60 +114,16 @@ public class IniciarSesion extends GeneralView {
         return login;
     }
 
-    public boolean validateInformation() {
+    public String getFirstName(){
+        return firstName.getText();
+    }
 
-        Boolean exist = false;
+    public String getLastName(){
+        return lastName.getText();
+    }
 
-        String Name = firstName.getText();
-        String lastname = lastName.getText();
-        String password_ = password.getText();
-
-        if (Name.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ",
-                    "Error de Nombre", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (lastname.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ",
-                    "Error de Apellido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (password_.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ",
-                    "Error de contraseña ", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        //String ruta = "src/DB/database.txt";
-        String ruta = "database.txt";
-
-        try (Scanner scanner = new Scanner(new File(ruta))) {
-            // Leer el archivo línea por línea
-            while (scanner.hasNextLine()) {
-                String linea = scanner.nextLine();
-                //Creo que, como muchas páginas, deberiamos guardarlo todo en Mayúsculas de una, porque si no, MAU y mau sería dos usuarios "distintos al registrarse" pero no al ingresar
-                if (linea.toLowerCase().contains(Name.toLowerCase())
-                        && linea.toLowerCase().contains(lastname.toLowerCase())
-                        && linea.toLowerCase().contains(password_.toLowerCase())) {
-                    JOptionPane.showMessageDialog(this, "Inicio de sesi\u00F3n exitoso",
-                            "Inicio de sesi\u00F3n", JOptionPane.INFORMATION_MESSAGE);
-                    exist = true;
-                    break;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println("Error: Archivo no encontrado: " + e.getMessage());
-        }
-
-        if (!exist) {
-            JOptionPane.showMessageDialog(this, "Usuario no encontrado",
-                    "Error de usuario", JOptionPane.ERROR_MESSAGE);
-                    return false;
-        }else{
-            return true;
-        }
-
+    public String getPassword(){
+        return password.getText();
     }
 
     public static void main(String args[]) {

@@ -25,6 +25,7 @@ public class Publicacion{
     private String title;
     private boolean hasImage;
     private String text;
+    private String owner;
     private int day,month,year;
     private JLabel  imagen;
 
@@ -35,8 +36,8 @@ public class Publicacion{
         classification = new String();
 
         try {
-            classification = "<html>" + reader.readLine() + "</html>";
-            title = "<html>" + reader.readLine() + "</html>";
+            classification = reader.readLine() ;
+            title =  reader.readLine() ;
 
             String[] dateAux = reader.readLine().split("-");
 
@@ -61,7 +62,8 @@ public class Publicacion{
             text = new String();
             String line = new String();
             line = reader.readLine();
-            text = "<html>" + line + "</html>";
+            text =  line;
+            owner = reader.readLine();
             reader.readLine();//Para eliminar el último "-"
 
 
@@ -88,6 +90,10 @@ public class Publicacion{
 
     public JLabel getImage(){
         return imagen;
+    }
+
+    public String getOwner(){
+        return owner;
     }
 
     public int getDay(){

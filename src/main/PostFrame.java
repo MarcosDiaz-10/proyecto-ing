@@ -22,11 +22,16 @@ import java.awt.Dimension;
 public class PostFrame extends JPanel{
 
     Publicacion publicacion;
-    JLabel classification,title,text,imagen,date;
+    JLabel classification,title,text,imagen,date,owner;
     JButton comment;
 
     public PostFrame(BufferedReader reader) {
 
+        initializePost(reader);
+
+    }
+
+    private void initializePost(BufferedReader reader){
         publicacion = new Publicacion(reader);
 
         setLayout(null);
@@ -36,25 +41,36 @@ public class PostFrame extends JPanel{
         comment.setForeground(IngSocColor.white);
         comment.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.println("Comentar en Publicacion " + title.getText());
+                //No se me ocurre como enlazar el controlador con esto para ir a comentarPublicacion
+                System.out.println("Comentar en Publicacion " + publicacion.getTitle());
             }
         });
 
-        classification = new JLabel(publicacion.getClassification());
+        classification = new JLabel("<html>" + publicacion.getClassification() + "</html>");
         classification.setBounds(5,5,100,25);
         classification.setFont(new Font("Arial",Font.ITALIC,10));
 
-        if(publicacion.getClassification().equals("<html>Evento</html>")){
+        if(publicacion.getClassification().equals("Evento")){
+            //Podemos dejar solo las letras también, o los bordes incluidos, idk
             classification.setForeground(IngSocColor.event);
-        }else if(publicacion.getClassification().equals("<html>Taller</html>")){
+            setBorder( BorderFactory.createLineBorder(IngSocColor.event,2));
+        }else if(publicacion.getClassification().equals("Taller")){
             classification.setForeground(IngSocColor.taller);
+            setBorder( BorderFactory.createLineBorder(IngSocColor.taller,2));
+        }else{
+            setBorder( BorderFactory.createLineBorder(Color.BLACK,1));
         }
 
         add(classification);
 
-        title = new JLabel(publicacion.getTitle());
+        owner = new JLabel("<html>De "+publicacion.getOwner() + "</html>");
+        owner.setBounds(5,18,300,25);
+        owner.setFont(new Font("Arial",Font.ITALIC,10));
+        add(owner);
+
+        title = new JLabel("<html>" + publicacion.getTitle() + "</html>");
         title.setFont(new Font("Arial",Font.BOLD,20));
-        title.setBounds(20,30,350,25);;
+        title.setBounds(20,40,350,25);;
         add(title);
 
         date = new JLabel(publicacion.getDate());
@@ -63,42 +79,36 @@ public class PostFrame extends JPanel{
         add(date);
 
 
-        text = new JLabel(publicacion.getText());
+        text = new JLabel("<html>" + publicacion.getText() + "</html>");
         text.setFont(new Font("Arial",Font.PLAIN,12));
 
         if(publicacion.hasImage()){
             imagen = new JLabel();
             imagen.setIcon(publicacion.getImage().getIcon());
 
-            imagen.setBounds(20,60,325,325);
+            imagen.setBounds(20,70,325,325);
             add(imagen);
 
-            text.setBounds(15,395,335,((1+(text.getText().length())/54))*15);
+            text.setBounds(15,405,335,((1+(text.getText().length())/54))*15);
         }else{
-            text.setBounds(15,60,335,((1+(text.getText().length())/54))*15);
+            text.setBounds(15,70,335,((1+(text.getText().length())/54))*15);
         }
 
         add(text);
-
-        setBorder( BorderFactory.createLineBorder(Color.BLACK,1));
-
-        setPreferredSize(new Dimension(370,400+((1+(text.getText().length())/54))*15));
-
 
         int extraPostSpace = ((1+(text.getText().length())/54))*15;
 
         if(publicacion.hasImage()){
 
-            setPreferredSize(new Dimension(370,445+extraPostSpace));
+            setPreferredSize(new Dimension(370,455+extraPostSpace));
             comment.setBounds(220,405+extraPostSpace,130,35);
         }else{
-            setPreferredSize(new Dimension(370,115+extraPostSpace));
+            setPreferredSize(new Dimension(370,125+extraPostSpace));
             comment.setBounds(220,75+extraPostSpace,130,35);
 
         }
         if(!classification.getText().equals("<html> </html>"))//Si no es la primera
             add(comment);
-
     }
 
     public JButton getComment(){

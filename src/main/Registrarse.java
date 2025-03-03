@@ -126,7 +126,7 @@ public class Registrarse extends GeneralView {
         return register;
     }
 
-    private String getSelectedRole() {
+    public String getSelectedRole() {
         if (professor.isSelected()) {
             return "Profesor";
         } else if (student.isSelected()) {
@@ -137,57 +137,24 @@ public class Registrarse extends GeneralView {
         return "No especificado";
     }
 
-    public boolean saveInformation() {
+    public String getFirstName(){
+        return firstName.getText();
+    }
 
-        String firstNameString = firstName.getText();
-        String lastNameString = lastName.getText();
-        //Esto quizás se pueda hacer algo como JButtonGroup.getSElection() para obtener el botón directamente y ahorrarnos el método
-        String rolString = getSelectedRole();
-        String passwordString = password.getText();
-        String repeatPasswordString = repeatPassword.getText();
+    public String getLastName(){
+        return lastName.getText();
+    }
 
-        if (firstNameString.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ",
-                    "Error de Nombre", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+    public String getPassword(){
+        return password.getText();
+    }
 
-        if (lastNameString.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ",
-                    "Error de Apellido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+    public String getRepeatPassword(){
+        return repeatPassword.getText();
+    }
 
-        if (rolString.equals("No especificado")) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un rol ",
-                    "Error de Escuela", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (passwordString.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ",
-                    "Error de contraseña ", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (!passwordString.equals(repeatPasswordString)) {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden. Intente nuevamente ",
-                    "Error de Contraseña", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-" + school.getSelectedItem() + "-" + rolString + '\n';
-        /*try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) {*/
-        try (FileWriter writer = new FileWriter("database.txt", true)) {
-            writer.write(informacion);
-            JOptionPane.showMessageDialog(this, "Informaci\u00F3n guardada con éxito");
-            return true;
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n: " + ex.getMessage(), "Error",
-            JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        //De nevo, quizá esta función podría ser booleana y así poder manejar bien el cambio de pantallas
+    public String getSchool(){
+        return (String) school.getSelectedItem();
     }
 
     public static void main(String args[]) {
