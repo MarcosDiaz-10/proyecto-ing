@@ -25,6 +25,7 @@ public class Publicacion{
     private String title;
     private boolean hasImage;
     private String text;
+    private int day,month,year;
     private JLabel  imagen;
 
     public Publicacion(BufferedReader reader){
@@ -36,6 +37,13 @@ public class Publicacion{
         try {
             classification = "<html>" + reader.readLine() + "</html>";
             title = "<html>" + reader.readLine() + "</html>";
+
+            String[] dateAux = reader.readLine().split("-");
+
+            day = Integer.parseInt(dateAux[0]);
+            month = Integer.parseInt(dateAux[1]);
+            year = Integer.parseInt(dateAux[2]);
+
     
             hasImage = "1".equals(reader.readLine());
 
@@ -47,20 +55,14 @@ public class Publicacion{
                 postImage = new ImageIcon(postImageRedimension);
 
                 imagen = new JLabel(postImage);
+            }else{
+                reader.readLine();//Saltamos la linea
             }
-
             text = new String();
             String line = new String();
             line = reader.readLine();
             text = "<html>" + line + "</html>";
             reader.readLine();//Para eliminar el último "-"
-            /*text = "<html>";
-            while((line != null) && (!line.equals("-"))){
-                System.out.println("aksdjhaksjd");
-                text += line + "<br>";
-                line = reader.readLine();
-            }
-            text += "</html>";*/
 
 
         } catch (IOException e) {
@@ -86,6 +88,22 @@ public class Publicacion{
 
     public JLabel getImage(){
         return imagen;
+    }
+
+    public int getDay(){
+        return day;
+    }
+
+    public int getMonth(){
+        return month;
+    }
+
+    public int getYear(){
+        return year;
+    }
+
+    public String getDate(){
+        return day+"-"+month+"-"+year;
     }
 
     public static void main(String args[]){

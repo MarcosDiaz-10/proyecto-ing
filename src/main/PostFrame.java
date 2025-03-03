@@ -22,7 +22,7 @@ import java.awt.Dimension;
 public class PostFrame extends JPanel{
 
     Publicacion publicacion;
-    JLabel classification,title,text,imagen;
+    JLabel classification,title,text,imagen,date;
     JButton comment;
 
     public PostFrame(BufferedReader reader) {
@@ -34,16 +34,34 @@ public class PostFrame extends JPanel{
         comment = new JButton("Comentar");
         comment.setBackground(IngSocColor.black);
         comment.setForeground(IngSocColor.white);
+        comment.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Comentar en Publicacion " + title.getText());
+            }
+        });
 
         classification = new JLabel(publicacion.getClassification());
         classification.setBounds(5,5,100,25);
         classification.setFont(new Font("Arial",Font.ITALIC,10));
+
+        if(publicacion.getClassification().equals("<html>Evento</html>")){
+            classification.setForeground(IngSocColor.event);
+        }else if(publicacion.getClassification().equals("<html>Taller</html>")){
+            classification.setForeground(IngSocColor.taller);
+        }
+
         add(classification);
 
         title = new JLabel(publicacion.getTitle());
         title.setFont(new Font("Arial",Font.BOLD,20));
         title.setBounds(20,30,350,25);;
         add(title);
+
+        date = new JLabel(publicacion.getDate());
+        date.setBounds(300,5,100,25);
+        date.setFont(new Font("Arial",Font.ITALIC,10));
+        add(date);
+
 
         text = new JLabel(publicacion.getText());
         text.setFont(new Font("Arial",Font.PLAIN,12));
@@ -53,7 +71,6 @@ public class PostFrame extends JPanel{
             imagen.setIcon(publicacion.getImage().getIcon());
 
             imagen.setBounds(20,60,325,325);
-            //imagen.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
             add(imagen);
 
             text.setBounds(15,395,335,((1+(text.getText().length())/54))*15);
@@ -79,7 +96,8 @@ public class PostFrame extends JPanel{
             comment.setBounds(220,75+extraPostSpace,130,35);
 
         }
-        add(comment);
+        if(!classification.getText().equals("<html> </html>"))//Si no es la primera
+            add(comment);
 
     }
 
