@@ -29,6 +29,7 @@ public class CrearPublicacion extends GeneralView {
     private JTextFieldCustom title, subtitle, description;
     private JComboBox postType, interestType;
     private JButton createPost, attach;
+    ControladorCrearPublicacion controladorCrearPublicacion;
     private String rutaImg;
 
     public CrearPublicacion() {
@@ -39,6 +40,7 @@ public class CrearPublicacion extends GeneralView {
     }
 
     private void initializeComponents() {
+        controladorCrearPublicacion = new ControladorCrearPublicacion();
         internalView = new JPanel();
 
         createPostLabel = new JLabel();
@@ -51,13 +53,6 @@ public class CrearPublicacion extends GeneralView {
         ima1 = new ImageIcon(scaledImage);
         imageLabel = new JLabel(ima1);
         imageLabel.setBounds(120, 100, 250, 200);
-
-        // // Check if the image has been loaded correctly
-        // if (imageLabel.getIconWidth() == -1) {
-        // System.out.println("Error: La imagen no se pudo cargar.");
-        // } else {
-        // System.out.println("Imagen cargada correctamente.");
-        // }
 
         postTitleLabel = new JLabel();
         setLabel(postTitleLabel, "Título de la publicación", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
@@ -125,12 +120,12 @@ public class CrearPublicacion extends GeneralView {
         attach.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rutaImg = saveImage(null, imageLabel);
+                rutaImg = controladorCrearPublicacion.saveImage(null, imageLabel, internalView);
 
             }
         });
 
-        DragAndDropImage(imageLabel);
+        rutaImg = controladorCrearPublicacion.DragAndDropImage(imageLabel, internalView);
     }
 
     private void addComponents() {
@@ -158,175 +153,28 @@ public class CrearPublicacion extends GeneralView {
         return createPost;
     }
 
-    private void DragAndDropImage(JLabel imagLabel) {
-        new DropTarget(imagLabel, new DropTargetAdapter() {
-            @Override
-            public void drop(DropTargetDropEvent event) {
-                try {
-                    event.acceptDrop(DnDConstants.ACTION_COPY);
-
-                    Transferable transferable = event.getTransferable();
-                    if (transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-                        List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
-
-                        if (files.size() == 1) {
-                            File file = files.get(0);
-
-                            // Verificar si es una imagen (por extensión)
-                            if (isImageFile(file)) {
-                                // Guardar la imagen en la ruta deseada
-                                rutaImg = saveImage(file, imagLabel);
-
-                            } else {
-                                // Si no es una imagen, rechazar el drop
-                                event.rejectDrop();
-                                JOptionPane.showMessageDialog(imagLabel,
-                                        "Solo se permiten archivos de imagen (JPG, PNG, GIF, BMP).",
-                                        "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            // Si se arrastra más de un archivo, rechazar el drop
-                            event.rejectDrop();
-                            JOptionPane.showMessageDialog(imagLabel,
-                                    "Solo se permite arrastrar una imagen a la vez.",
-                                    "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-
-                } catch (UnsupportedFlavorException e) {
-                    // Manejar la excepción si el tipo de dato no es compatible
-                    event.rejectDrop();
-                    JOptionPane.showMessageDialog(imagLabel,
-                            "Formato de archivo no compatible.",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (IOException e) {
-                    // Manejar errores de entrada/salida
-                    event.rejectDrop();
-                    JOptionPane.showMessageDialog(imagLabel,
-                            "Error al procesar el archivo: " + e.getMessage(),
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (Exception e) {
-                    // Manejar cualquier otra excepción
-                    event.rejectDrop();
-                    JOptionPane.showMessageDialog(imagLabel,
-                            "Error inesperado: " + e.getMessage(),
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
+    public String getRutaImg() {
+        return rutaImg;
     }
 
-    public Boolean saveInformationPublication() {
-
-        String postTitle = title.getText();
-        String postSubtitle = subtitle.getText();
-        String interstTypeValue = interestType.getSelectedItem().toString();
-        String postTypeValue = postType.getSelectedItem().toString();
-        String descriptionValue = description.getText();
-
-        if (postTitle.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Titulo",
-                    "Error de Titulo", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (postSubtitle.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Subtitulo",
-                    "Error de Subtitulo", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (interstTypeValue.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Tipo De Interés ",
-                    "Error de Tipo De Interés", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (postTypeValue.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Tipo De Publicación",
-                    "Error de Tipo De publicación", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (descriptionValue.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar una Description",
-                    "Error de Descripción", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (rutaImg.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar una Imagen",
-                    "Error de Imagen", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String informacion = "\n" + postTitle + "\n" + postSubtitle + "\n" + 1 + "\n" + rutaImg + "\n"
-                + interstTypeValue + "\n"
-                + postTypeValue
-                + '\n' + descriptionValue + '\n';
-        /* try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) { */
-        try (FileWriter writer = new FileWriter("src/main/postDatabase.txt", true)) {
-            writer.write(informacion);
-            JOptionPane.showMessageDialog(this, "Informaci\u00F3n guardada con éxito");
-            return true;
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n: " + ex.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
+    public String getTitle() {
+        return title.getText();
     }
 
-    private String saveImage(File img, JLabel imagLabel) {
-        File archivo = img;
-
-        if (img == null) {
-
-            // Mostrar un cuadro de diálogo para elegir la ubicación y el nombre del archivo
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Seleccionar imagen");
-            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
-                    "Imágenes", "jpg", "jpeg", "png", "gif", "bmp"));
-            int seleccionUsuario = fileChooser.showOpenDialog(this);
-            if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
-                archivo = fileChooser.getSelectedFile();
-            } else {
-                archivo = null;
-            }
-        }
-
-        if (archivo != null) {
-            String rutaDestino = "src/main";
-
-            try {
-                Path origin = archivo.toPath();
-
-                Path destino = Paths.get(rutaDestino, archivo.getName());
-
-                Files.copy(origin, destino);
-
-                // Mostrar la imagen en el JLabel
-                ImageIcon icon = new ImageIcon(destino.toString());
-                Image image = icon.getImage();
-                ImageIcon scaledImage = new ImageIcon(
-                        image.getScaledInstance(200, 200, Image.SCALE_SMOOTH));
-                imageLabel.setIcon(scaledImage);
-                return destino.toString();
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al guardar la imagen: " + e.getMessage(), "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return "";
-            }
-
-        }
-        return "";
+    public String getSubtitle() {
+        return subtitle.getText();
     }
 
-    private boolean isImageFile(File file) {
-        String nombre = file.getName().toLowerCase();
-        return nombre.endsWith(".jpg") || nombre.endsWith(".jpeg") ||
-                nombre.endsWith(".png") || nombre.endsWith(".gif") ||
-                nombre.endsWith(".bmp");
+    public String getDescription() {
+        return description.getText();
+    }
+
+    public String getInterstTypeValue() {
+        return interestType.getSelectedItem().toString();
+    }
+
+    public String getPostTypeValue() {
+        return postType.getSelectedItem().toString();
     }
 
     public static void main(String args[]) {
