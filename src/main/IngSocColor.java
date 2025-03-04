@@ -16,13 +16,16 @@ import java.awt.event.ActionEvent; // Importa la clase ActionEvent
 
 public class IngSocColor{
 
-    public static Color red,black,white;
+    public static Color red,black,white,gray,event,taller;
 
     public IngSocColor(){
 
         red = new Color(184,12,9);
         black = new Color(20,19,1);
         white = new Color(217,217,217);
+        gray = new Color(170,170,170);
+        event = new Color(180, 80, 20);
+        taller = new Color(103, 18, 18);
 
     }
 

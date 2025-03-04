@@ -117,6 +117,18 @@ public class IniciarSesion extends GeneralView {
         return login;
     }
 
+    public String getFirstName() {
+        return firstName.getText();
+    }
+
+    public String getLastName() {
+        return lastName.getText();
+    }
+
+    public String getPassword() {
+        return password.getText();
+    }
+
     public boolean validateInformation() {
 
         Boolean exist = false;

@@ -3,6 +3,7 @@ import javax.swing.SpringLayout.Constraints;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.DateFormatter;
 import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
@@ -19,9 +20,11 @@ import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PushbackReader;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.BufferedReader;
 
-
+//****INTENTAR VER SI PUEDO METER ÉSTE, EL DE LOADPOST Y EL DE CALENDARIO EN UN CONTROLADOR
 
 
 public class PaginaPrincipal extends GeneralView{
@@ -41,9 +44,8 @@ public class PaginaPrincipal extends GeneralView{
 
     public PaginaPrincipal(){
 
-        System.out.println("vaya camina por arriba el mambo");
-
         initializeComponents();
+        initializeCalendar();
 
         internalView.setLayout(null);
 
@@ -78,6 +80,8 @@ public class PaginaPrincipal extends GeneralView{
             readerIndex = new BufferedReader(new FileReader("postDatabase.txt"));
             postCascade = new ArrayList<PostFrame>();
 
+            //INTENTAR VER SI PUEDO METER ÉSTE, EL DE LOADPOST Y EL DE CALENDARIO EN UN CONTROLADOR
+
             for(int i=0; i<2; i++){
 
                 PostFrame aux = new PostFrame(readerIndex);
@@ -100,28 +104,18 @@ public class PaginaPrincipal extends GeneralView{
 
 
         } catch (IOException e) {
-            System.out.println("Error al abrir el archivo desde Pagina Principal");
+            System.out.println("Error al abrir el archivo desde P\u00E1gina Principal");
         }
 
-        //Esto es sólo temporal para probar hoy, si funciona, a la principal también sin duda
         postScrollBar = postScroll.getVerticalScrollBar();
         postScrollBar.setUnitIncrement(30);//Para la rueda del ratón
         postScrollBar.setBlockIncrement(30);//Para las flechitas de arriba/abajo
 
 
-        //MAS O MENOS AQUI  TERMINAN
-
-
         postFeed.setBounds(0,0,100,100);
         postScroll.setBounds(300,20,450,660);
-        postScroll.setBorder(null); //CON ESTO LE PODEMOS QUITAR EL BORDE PERO POR AHORA PARA SABER DONDE ESTA
+        postScroll.setBorder(null); //Le quita el border al JScrollBar
 
-        calendar = new JPanel();
-        calendar.setOpaque(false);
-        calendar.setBackground(new Color(100,100,100));
-        calendar.setBounds(50,20,200,200);
-        calendar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        calendar.add(new JLabel("Placeholder"));
 
         post = new JButton("Publicar");
         post.setBackground(IngSocColor.black);
@@ -145,7 +139,7 @@ public class PaginaPrincipal extends GeneralView{
     public void loadPost(){
 
         if(!areTherePost){
-            System.out.println("Nope");
+            System.out.println("No hay m\u00E1s publicaciones");
             return;
         }
 
@@ -175,6 +169,125 @@ public class PaginaPrincipal extends GeneralView{
             }
 
         }
+
+
+    }
+
+    private void initializeCalendar(){
+
+        calendar = new JPanel();
+        calendar.setOpaque(false);
+        calendar.setBackground(new Color(100,100,100));
+        calendar.setBounds(25,20,275,275);
+        calendar.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        calendar.setLayout(new GridLayout(0,7));
+
+        JLabel[] dias = new JLabel[49];
+
+       
+
+        dias[0] = new JLabel("DOM");
+        dias[1] = new JLabel("LUN");
+        dias[2] = new JLabel("MAR");
+        dias[3] = new JLabel("MI\u00C9");
+        dias[4] = new JLabel("JUE");
+        dias[5] = new JLabel("VIE");
+        dias[6] = new JLabel("S\u00C1B");
+
+        for(int i=0;i<7;i++){
+            dias[i].setHorizontalAlignment(SwingConstants.CENTER);
+        }
+
+        LocalDate today = LocalDate.now();
+        int firstDayOfCalendar;
+
+        if(today.withDayOfMonth(1).getDayOfWeek().getValue() == 7){
+            firstDayOfCalendar = 0;
+        }else{
+            firstDayOfCalendar = today.withDayOfMonth(1).getDayOfWeek().getValue();
+        }
+
+        for(int i=7;i<firstDayOfCalendar+7;i++){
+            dias[i] = new JLabel(); 
+            dias[i].setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+            dias[i].setHorizontalAlignment(SwingConstants.CENTER);
+        }
+
+
+        for(int i=7+firstDayOfCalendar;i<today.lengthOfMonth()+7+firstDayOfCalendar    ;i++){
+            dias[i] = new JLabel(String.valueOf(i-firstDayOfCalendar-6));
+            dias[i].setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+            dias[i].setHorizontalAlignment(SwingConstants.CENTER);
+
+            if(today.getDayOfMonth() == i-firstDayOfCalendar-6){
+                dias[i].setBackground(IngSocColor.gray);
+            }
+
+        }
+
+        for(int i=today.lengthOfMonth()+7+firstDayOfCalendar;i<49;i++){
+            dias[i] = new JLabel("");
+            dias[i].setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+            dias[i].setHorizontalAlignment(SwingConstants.CENTER);
+        }
+
+        for(int i=0; i<49;i++){
+            dias[i].setOpaque(true);
+            calendar.add(dias[i]);
+        }
+
+        try {
+
+            BufferedReader auxDateReader = new BufferedReader(new FileReader("postDatabase.txt"));
+            
+            String line = auxDateReader.readLine();
+            String classificationDate = line;
+            auxDateReader.readLine(); //Leemos el título de la primera
+            while(line != null){
+
+                line = auxDateReader.readLine();//Tomamos la fecha
+
+                String[] date = line.split("-");//La dividimos
+
+                if(today.getYear() == Integer.parseInt(date[2])){
+                    if(today.getMonth().getValue() == Integer.parseInt(date[1])){//Si es este mes y este año, lo ponemos en el calendario
+
+                        for(int i=7+firstDayOfCalendar;i<today.lengthOfMonth()+7+firstDayOfCalendar;i++){//Pasamos por el calendario buscando el dia 
+                            if(Integer.parseInt(dias[i].getText()) == Integer.parseInt(date[0])){//Si es el buscamos, lo agregamos
+
+                                if(classificationDate.equals("Evento")){
+                                    dias[i].setBackground(IngSocColor.event);
+                                    dias[i].setForeground(IngSocColor.white);
+                                }else if(classificationDate.equals("Taller")){
+                                    dias[i].setBackground(IngSocColor.taller);
+                                    dias[i].setForeground(IngSocColor.white);
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }
+
+                for(int i=0;i<5;i++){
+                   auxDateReader.readLine(); //Leemos todo hasta la siguiente clasificacion
+                }
+                classificationDate = auxDateReader.readLine();//Agarramos la classificacion
+                line = auxDateReader.readLine();//Leemos la siguiente linea, si es null, line sera null, si no, simplemente la ignoramos
+
+
+            }
+
+            auxDateReader.close();
+
+            
+
+
+        } catch (IOException e) {
+            System.out.println("Error al abrir el archivo desde P\u00E1gina Principal");
+        }
+
 
 
     }

@@ -7,6 +7,9 @@ import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent; // Importa la clase ActionEvent
@@ -21,6 +24,8 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
     PaginaPrincipal mainPageView;
     CrearPublicacion createPostView;
     IngSocColor ingSocColor;
+    ControladorIniciarSesion controladorIniciarSesion;
+    ControladorRegistrarse controladorRegistrarse;
 
     public MainWindow() {
 
@@ -28,6 +33,7 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         ingSocColor = new IngSocColor();
 
+        initializeControllers();
         initializeLoginView();
         initializeRegisterView();
         initializeCreatePostView();
@@ -37,6 +43,11 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
         setTitle("IngSoc - La guerra es paz, la libertad es esclavitud, la ignorancia es la fuerza.");
         add(loginView, BorderLayout.CENTER);
 
+    }
+
+    public void initializeControllers(){
+        controladorIniciarSesion = new ControladorIniciarSesion();
+        controladorRegistrarse = new ControladorRegistrarse();
     }
 
     public void stateChanged(ChangeEvent evento) {
@@ -57,15 +68,45 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
             // Esta también debería tener un controlador, etc, misma estrategia, ve primero
             // registro para explicarles Mauricio pq ahí hiciste todas las acotaciones
             System.out.println("Iniciando Sesion (Verificando datos)");
+<<<<<<< HEAD
             if (true) {
                 initializeMainPageView();// Inicializamos la página principal
                 remove(loginView);
                 add(mainPageView, BorderLayout.CENTER);
                 revalidate();
                 repaint();
+=======
+
+
+            switch (controladorIniciarSesion.validateInformation(loginView)) {
+                case 0://Todo va bien y el usuario inicia sesion
+                    JOptionPane.showMessageDialog(this, "Inicio de sesi\u00F3n exitoso","Inicio de sesi\u00F3n", JOptionPane.INFORMATION_MESSAGE);
+                    initializeMainPageView();//Inicializamos la página principal
+                    remove(loginView);
+                    add(mainPageView,BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                    break;
+                case 1://Error en el nombre
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ","Error de Nombre", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 2://Error en el apellido
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ","Error de Apellido", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 3://Error en la contrasena
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ","Error de contraseña ", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 4://Error Usuario no encontrado
+                    JOptionPane.showMessageDialog(this, "Usuario no encontrado","Error de usuario", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default://Error general
+                    JOptionPane.showMessageDialog(this, "Hubo un error. Intente de nuevo luego","Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+>>>>>>> cee44fc2b2cbfd9bb660bd11d939b27a3bf22581
             }
 
         } else if (evento.getSource() == registerView.getRegisterButton()) {
+<<<<<<< HEAD
 
             // De la misma forma, sin embargo, el método saveInformation debería ser parte
             // de una clase tipo controlador, pues es, él a fin de cuentas, quién se encarga
@@ -79,6 +120,37 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
                 add(loginView, BorderLayout.CENTER);
                 revalidate();
                 repaint();
+=======
+            
+
+            switch (controladorRegistrarse.saveInformation(registerView)) {
+                case 0://Todo va bien y el usuario se registra
+                    JOptionPane.showMessageDialog(this, "Informaci\u00F3n guardada con éxito");
+                    System.out.println("Yendo a Iniciar Sesión");
+                    remove(registerView);
+                    add(loginView, BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                    break;
+                case 1://Error en el nombre
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ","Error de Nombre", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 2://Error en el apellido
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ","Error de Apellido", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 3://Error en el rol
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un rol ","Error de Escuela", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 4://Error en la contrasena
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ","Error de contraseña ", JOptionPane.ERROR_MESSAGE);                    
+                    break;
+                case 5://Las contrasenas no coinciden
+                    JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden. Intente nuevamente ","Error de Contraseña", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default://Error general
+                    JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n. ", "Error",JOptionPane.ERROR_MESSAGE);
+                    break;
+>>>>>>> cee44fc2b2cbfd9bb660bd11d939b27a3bf22581
             }
 
         } else if (evento.getSource() == mainPageView.getCloseSessionButton()) {
