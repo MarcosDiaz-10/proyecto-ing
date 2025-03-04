@@ -19,10 +19,10 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
     IniciarSesion loginView;
     Registrarse registerView;
     PaginaPrincipal mainPageView;
+    CrearPublicacion createPostView;
     IngSocColor ingSocColor;
 
     public MainWindow() {
-
 
         setIconImage(new ImageIcon("zlogo2redondeado.png").getImage());
 
@@ -30,11 +30,12 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         initializeLoginView();
         initializeRegisterView();
+        initializeCreatePostView();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setTitle("IngSoc - La guerra es paz, la libertad es esclavitud, la ignorancia es la fuerza.");
-        add(loginView,BorderLayout.CENTER); 
+        add(loginView, BorderLayout.CENTER);
 
     }
 
@@ -53,23 +54,26 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         } else if (evento.getSource() == loginView.getLoginButton()) {
 
-            //Esta también debería tener un controlador, etc, misma estrategia, ve primero registro para explicarles Mauricio pq ahí hiciste todas las acotaciones
+            // Esta también debería tener un controlador, etc, misma estrategia, ve primero
+            // registro para explicarles Mauricio pq ahí hiciste todas las acotaciones
             System.out.println("Iniciando Sesion (Verificando datos)");
-            if(loginView.validateInformation()){
-                initializeMainPageView();//Inicializamos la página principal
+            if (true) {
+                initializeMainPageView();// Inicializamos la página principal
                 remove(loginView);
-                add(mainPageView,BorderLayout.CENTER);
+                add(mainPageView, BorderLayout.CENTER);
                 revalidate();
                 repaint();
             }
 
-
         } else if (evento.getSource() == registerView.getRegisterButton()) {
 
-            //De la misma forma, sin embargo, el método saveInformation debería ser parte de una clase tipo controlador, pues es, él a fin de cuentas, quién se encarga de esa lógica
-            //La vista es sólo la vista, no debería tener dentro de sí el método para manejar eso, creo
-            
-            if(registerView.saveInformation()){
+            // De la misma forma, sin embargo, el método saveInformation debería ser parte
+            // de una clase tipo controlador, pues es, él a fin de cuentas, quién se encarga
+            // de esa lógica
+            // La vista es sólo la vista, no debería tener dentro de sí el método para
+            // manejar eso, creo
+
+            if (registerView.saveInformation()) {
                 System.out.println("Yendo a Iniciar Sesión");
                 remove(registerView);
                 add(loginView, BorderLayout.CENTER);
@@ -88,6 +92,20 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
         } else if (evento.getSource() == mainPageView.getPostButton()) {
 
             System.out.println("Yendo a Crear Publicacion");
+            remove(mainPageView);
+            add(createPostView, BorderLayout.CENTER);
+            revalidate();
+            repaint();
+
+        } else if (evento.getSource() == createPostView.getCreatePostButton()) {
+            System.out.println("Yendo a Pagina principal");
+
+            if (createPostView.saveInformationPublication()) {
+                remove(createPostView);
+                add(mainPageView, BorderLayout.CENTER);
+                revalidate();
+                repaint();
+            }
 
         }
 
@@ -126,6 +144,12 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         registerView.getRegisterButton().addActionListener(this);
 
+    }
+
+    public void initializeCreatePostView() {
+        createPostView = new CrearPublicacion();
+        initializeFrameButtons(createPostView);
+        createPostView.getCreatePostButton().addActionListener(this);
     }
 
     private void initializeMainPageView() {

@@ -55,8 +55,6 @@ public class Registrarse extends GeneralView {
         school.addItem("Matem\u00E1tica");
         school.addItem("Geoqu\uu00EDmica");
 
-
-
         rol = new JLabel();
         setLabel(rol, "Rol", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
         rol.setBounds(160, 310, 200, 25);
@@ -141,7 +139,8 @@ public class Registrarse extends GeneralView {
 
         String firstNameString = firstName.getText();
         String lastNameString = lastName.getText();
-        //Esto quizás se pueda hacer algo como JButtonGroup.getSElection() para obtener el botón directamente y ahorrarnos el método
+        // Esto quizás se pueda hacer algo como JButtonGroup.getSElection() para obtener
+        // el botón directamente y ahorrarnos el método
         String rolString = getSelectedRole();
         String passwordString = password.getText();
         String repeatPasswordString = repeatPassword.getText();
@@ -175,19 +174,21 @@ public class Registrarse extends GeneralView {
             return false;
         }
 
-        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-" + school.getSelectedItem() + "-" + rolString + '\n';
-        /*try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) {*/
-        try (FileWriter writer = new FileWriter("database.txt", true)) {
+        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-"
+                + school.getSelectedItem() + "-" + rolString + '\n';
+        /* try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) { */
+        try (FileWriter writer = new FileWriter("src/main/database.txt", true)) {
             writer.write(informacion);
             JOptionPane.showMessageDialog(this, "Informaci\u00F3n guardada con éxito");
             return true;
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n: " + ex.getMessage(), "Error",
-            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        //De nevo, quizá esta función podría ser booleana y así poder manejar bien el cambio de pantallas
+        // De nevo, quizá esta función podría ser booleana y así poder manejar bien el
+        // cambio de pantallas
     }
 
     public static void main(String args[]) {
