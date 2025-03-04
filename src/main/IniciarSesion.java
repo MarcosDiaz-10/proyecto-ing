@@ -129,52 +129,16 @@ public class IniciarSesion extends GeneralView {
         return password.getText();
     }
 
-    public boolean validateInformation() {
+    public void setFirstName(String data){
+        firstName.setText(data);
+    }
 
-        Boolean exist = false;
+    public void setLastName(String data){
+        lastName.setText(data);
+    }
 
-        String Name = firstName.getText();
-        String lastname = lastName.getText();
-        String password_ = password.getText();
-
-        if (Name.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ",
-                    "Error de Nombre", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (lastname.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ",
-                    "Error de Apellido", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        if (password_.length() < 1) {
-            JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ",
-                    "Error de contraseña ", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        // String ruta = "src/DB/database.txt";
-        String ruta = "src/main/database.txt";
-
-        try {
-            List<String> lineas = Files.readAllLines(Paths.get(ruta));
-            for (String linea : lineas) {
-                System.out.println(linea);
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error: Archivo no encontrado: " + e.getMessage());
-        }
-
-        if (!exist) {
-            JOptionPane.showMessageDialog(this, "Usuario no encontrado",
-                    "Error de usuario", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else {
-            return true;
-        }
-
+    public void setPassword(String data){
+        password.setText(data);
     }
 
     public static void main(String args[]) {
