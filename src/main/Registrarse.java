@@ -55,8 +55,6 @@ public class Registrarse extends GeneralView {
         school.addItem("Matem\u00E1tica");
         school.addItem("Geoqu\uu00EDmica");
 
-
-
         rol = new JLabel();
         setLabel(rol, "Rol", new Font("Arial", Font.BOLD, 12), IngSocColor.black);
         rol.setBounds(160, 310, 200, 25);
@@ -137,23 +135,23 @@ public class Registrarse extends GeneralView {
         return "No especificado";
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return firstName.getText();
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return lastName.getText();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password.getText();
     }
 
-    public String getRepeatPassword(){
+    public String getRepeatPassword() {
         return repeatPassword.getText();
     }
 
-    public String getSchool(){
+    public String getSchool() {
         return (String) school.getSelectedItem();
     }
 

@@ -15,6 +15,9 @@ import java.util.concurrent.Flow;
 import java.awt.event.ActionEvent; // Importa la clase ActionEvent
 import java.awt.event.MouseEvent; // Importa la clase MouseEvent
 import java.awt.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class IniciarSesion extends GeneralView {
 
@@ -71,7 +74,7 @@ public class IniciarSesion extends GeneralView {
         login.setBackground(IngSocColor.black);
         login.setForeground(IngSocColor.white);
         login.setBounds(160, 240, 423, 30);
-        
+
         ImageIcon IngSocIcon = new ImageIcon("zlogo2redondeado.png");
         // Para escalar
         Image IngSocRedimension = IngSocIcon.getImage();
@@ -114,16 +117,64 @@ public class IniciarSesion extends GeneralView {
         return login;
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return firstName.getText();
     }
 
-    public String getLastName(){
+    public String getLastName() {
         return lastName.getText();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password.getText();
+    }
+
+    public boolean validateInformation() {
+
+        Boolean exist = false;
+
+        String Name = firstName.getText();
+        String lastname = lastName.getText();
+        String password_ = password.getText();
+
+        if (Name.length() < 1) {
+            JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ",
+                    "Error de Nombre", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (lastname.length() < 1) {
+            JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ",
+                    "Error de Apellido", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (password_.length() < 1) {
+            JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ",
+                    "Error de contraseña ", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        // String ruta = "src/DB/database.txt";
+        String ruta = "src/main/database.txt";
+
+        try {
+            List<String> lineas = Files.readAllLines(Paths.get(ruta));
+            for (String linea : lineas) {
+                System.out.println(linea);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error: Archivo no encontrado: " + e.getMessage());
+        }
+
+        if (!exist) {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado",
+                    "Error de usuario", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     public static void main(String args[]) {

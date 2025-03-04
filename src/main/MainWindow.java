@@ -22,12 +22,13 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
     IniciarSesion loginView;
     Registrarse registerView;
     PaginaPrincipal mainPageView;
+    CrearPublicacion createPostView;
     IngSocColor ingSocColor;
     ControladorIniciarSesion controladorIniciarSesion;
     ControladorRegistrarse controladorRegistrarse;
+    ControladorCrearPublicacion controladorCrearPublicacion;
 
     public MainWindow() {
-
 
         setIconImage(new ImageIcon("zlogo2redondeado.png").getImage());
 
@@ -36,17 +37,20 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
         initializeControllers();
         initializeLoginView();
         initializeRegisterView();
+        initializeCreatePostView();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setTitle("IngSoc - La guerra es paz, la libertad es esclavitud, la ignorancia es la fuerza.");
-        add(loginView,BorderLayout.CENTER); 
+        add(loginView, BorderLayout.CENTER);
 
     }
 
-    public void initializeControllers(){
+    public void initializeControllers() {
         controladorIniciarSesion = new ControladorIniciarSesion();
         controladorRegistrarse = new ControladorRegistrarse();
+        controladorCrearPublicacion = new ControladorCrearPublicacion();
+
     }
 
     public void stateChanged(ChangeEvent evento) {
@@ -64,42 +68,46 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         } else if (evento.getSource() == loginView.getLoginButton()) {
 
-            //Esta también debería tener un controlador, etc, misma estrategia, ve primero registro para explicarles Mauricio pq ahí hiciste todas las acotaciones
+            // Esta también debería tener un controlador, etc, misma estrategia, ve primero
+            // registro para explicarles Mauricio pq ahí hiciste todas las acotaciones
             System.out.println("Iniciando Sesion (Verificando datos)");
 
-
             switch (controladorIniciarSesion.validateInformation(loginView)) {
-                case 0://Todo va bien y el usuario inicia sesion
-                    JOptionPane.showMessageDialog(this, "Inicio de sesi\u00F3n exitoso","Inicio de sesi\u00F3n", JOptionPane.INFORMATION_MESSAGE);
-                    initializeMainPageView();//Inicializamos la página principal
+                case 0:// Todo va bien y el usuario inicia sesion
+                    JOptionPane.showMessageDialog(this, "Inicio de sesi\u00F3n exitoso", "Inicio de sesi\u00F3n",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    initializeMainPageView();// Inicializamos la página principal
                     remove(loginView);
-                    add(mainPageView,BorderLayout.CENTER);
+                    add(mainPageView, BorderLayout.CENTER);
                     revalidate();
                     repaint();
                     break;
-                case 1://Error en el nombre
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ","Error de Nombre", JOptionPane.ERROR_MESSAGE);
+                case 1:// Error en el nombre
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ", "Error de Nombre",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                case 2://Error en el apellido
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ","Error de Apellido", JOptionPane.ERROR_MESSAGE);
+                case 2:// Error en el apellido
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ", "Error de Apellido",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                case 3://Error en la contrasena
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ","Error de contraseña ", JOptionPane.ERROR_MESSAGE);
+                case 3:// Error en la contrasena
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ", "Error de contraseña ",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                case 4://Error Usuario no encontrado
-                    JOptionPane.showMessageDialog(this, "Usuario no encontrado","Error de usuario", JOptionPane.ERROR_MESSAGE);
+                case 4:// Error Usuario no encontrado
+                    JOptionPane.showMessageDialog(this, "Usuario no encontrado", "Error de usuario",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                default://Error general
-                    JOptionPane.showMessageDialog(this, "Hubo un error. Intente de nuevo luego","Error", JOptionPane.ERROR_MESSAGE);
+                default:// Error general
+                    JOptionPane.showMessageDialog(this, "Hubo un error. Intente de nuevo luego", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
             }
 
-
         } else if (evento.getSource() == registerView.getRegisterButton()) {
-            
 
             switch (controladorRegistrarse.saveInformation(registerView)) {
-                case 0://Todo va bien y el usuario se registra
+                case 0:// Todo va bien y el usuario se registra
                     JOptionPane.showMessageDialog(this, "Informaci\u00F3n guardada con éxito");
                     System.out.println("Yendo a Iniciar Sesión");
                     remove(registerView);
@@ -107,23 +115,29 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
                     revalidate();
                     repaint();
                     break;
-                case 1://Error en el nombre
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ","Error de Nombre", JOptionPane.ERROR_MESSAGE);
+                case 1:// Error en el nombre
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un nombre ", "Error de Nombre",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                case 2://Error en el apellido
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ","Error de Apellido", JOptionPane.ERROR_MESSAGE);
+                case 2:// Error en el apellido
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Apellido ", "Error de Apellido",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                case 3://Error en el rol
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un rol ","Error de Escuela", JOptionPane.ERROR_MESSAGE);
+                case 3:// Error en el rol
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un rol ", "Error de Escuela",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                case 4://Error en la contrasena
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ","Error de contraseña ", JOptionPane.ERROR_MESSAGE);                    
+                case 4:// Error en la contrasena
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una contraseña ", "Error de contraseña ",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
-                case 5://Las contrasenas no coinciden
-                    JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden. Intente nuevamente ","Error de Contraseña", JOptionPane.ERROR_MESSAGE);
+                case 5:// Las contrasenas no coinciden
+                    JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden. Intente nuevamente ",
+                            "Error de Contraseña", JOptionPane.ERROR_MESSAGE);
                     break;
-                default://Error general
-                    JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n. ", "Error",JOptionPane.ERROR_MESSAGE);
+                default:// Error general
+                    JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n. ", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
             }
 
@@ -138,6 +152,54 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
         } else if (evento.getSource() == mainPageView.getPostButton()) {
 
             System.out.println("Yendo a Crear Publicacion");
+            remove(mainPageView);
+            add(createPostView, BorderLayout.CENTER);
+            revalidate();
+            repaint();
+
+        } else if (evento.getSource() == createPostView.getCreatePostButton()) {
+            System.out.println("Yendo a Pagina principal");
+
+            switch (controladorCrearPublicacion.saveInformationPublication(createPostView,
+                    createPostView.getRutaImg())) {
+                case 0:
+                    JOptionPane.showMessageDialog(this, "Informaci\u00F3n guardada con éxito");
+                    System.out.println("Yendo a Pagina principal");
+                    remove(createPostView);
+                    add(mainPageView, BorderLayout.CENTER);
+                    revalidate();
+                    repaint();
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Titulo",
+                            "Error de Titulo", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Subtitulo",
+                            "Error de Subtitulo", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Tipo De Interés ",
+                            "Error de Tipo De Interés", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 4:
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Tipo De Publicación",
+                            "Error de Tipo De publicación", JOptionPane.ERROR_MESSAGE);
+
+                    break;
+                case 5:
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una Description",
+                            "Error de Descripción", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 6:
+                    JOptionPane.showMessageDialog(this, "Tiene que ingresar una Imagen",
+                            "Error de Imagen", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:// Error general
+                    JOptionPane.showMessageDialog(this, "Error al guardar la informaci\u00F3n. ", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
 
         }
 
@@ -176,6 +238,12 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
         registerView.getRegisterButton().addActionListener(this);
 
+    }
+
+    public void initializeCreatePostView() {
+        createPostView = new CrearPublicacion();
+        initializeFrameButtons(createPostView);
+        createPostView.getCreatePostButton().addActionListener(this);
     }
 
     private void initializeMainPageView() {

@@ -19,10 +19,9 @@ import java.awt.event.ActionEvent; // Importa la clase ActionEvent
 import javax.swing.*;
 import java.awt.*;
 
+public class ControladorIniciarSesion {
 
-public class ControladorIniciarSesion{
-
-    public ControladorIniciarSesion(){
+    public ControladorIniciarSesion() {
 
     }
 
@@ -45,15 +44,17 @@ public class ControladorIniciarSesion{
         if (password_.length() < 1) {
             return 3;
         }
-        //String ruta = "src/DB/database.txt";
-        String ruta = "database.txt";
+        // String ruta = "src/DB/database.txt";
+        String ruta = "src/main/database.txt";
 
         try (Scanner scanner = new Scanner(new File(ruta))) {
             // Leer el archivo línea por línea
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine();
-                //Creo que, como muchas páginas, deberiamos guardarlo todo en Mayúsculas de una, porque si no, MAU y mau sería dos usuarios "distintos al registrarse" pero no al ingresar
-                //Esto sólo comprueba si la linea contiene el nombre?
+                // Creo que, como muchas páginas, deberiamos guardarlo todo en Mayúsculas de
+                // una, porque si no, MAU y mau sería dos usuarios "distintos al registrarse"
+                // pero no al ingresar
+                // Esto sólo comprueba si la linea contiene el nombre?
                 if (linea.toLowerCase().contains(Name.toLowerCase())
                         && linea.toLowerCase().contains(lastname.toLowerCase())
                         && linea.toLowerCase().contains(password_.toLowerCase())) {
@@ -67,14 +68,14 @@ public class ControladorIniciarSesion{
         }
 
         if (!exist) {
-                    return 4;
-        }else{
+            return 4;
+        } else {
             return 0;
         }
 
     }
-   
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         System.out.println("ControladorInicarSesion inicializado");
     }
 
