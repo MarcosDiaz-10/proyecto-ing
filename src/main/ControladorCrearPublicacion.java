@@ -102,6 +102,7 @@ public class ControladorCrearPublicacion {
         String interstTypeValue = crearPublicacionView.getInterstTypeValue();
         String postTypeValue = crearPublicacionView.getPostTypeValue();
         String descriptionValue = crearPublicacionView.getDescription();
+        String date = crearPublicacionView.getdate();
 
         if (postTitle.length() < 1) {
 
@@ -126,17 +127,17 @@ public class ControladorCrearPublicacion {
 
             return 5;
         }
-        if (rutaImg.length() < 1) {
+        if (rutaImg != null && rutaImg.length() < 1) {
 
             return 6;
         }
 
-        String informacion = "\n" + postTitle + "\n" + postSubtitle + "\n" + 1 + "\n" + rutaImg + "\n"
-                + interstTypeValue + "\n"
-                + postTypeValue
-                + '\n' + descriptionValue + '\n';
+        String informacion = "\n" + postTitle + "\n"
+        + postTypeValue + "\n" + date + "\n" + 1 + "\n" + rutaImg + "\n"
+                + interstTypeValue 
+                + '\n' + descriptionValue + "\n" + '-' + '\n';
         /* try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) { */
-        try (FileWriter writer = new FileWriter("src/main/postDatabase.txt", true)) {
+        try (FileWriter writer = new FileWriter("postDatabase.txt", true)) {
             writer.write(informacion);
 
             return 0;
@@ -170,7 +171,7 @@ public class ControladorCrearPublicacion {
         }
 
         if (archivo != null) {
-            String rutaDestino = "src/main";
+            String rutaDestino = "";
 
             try {
                 Path origin = archivo.toPath();

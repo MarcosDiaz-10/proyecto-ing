@@ -11,9 +11,11 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
 import javax.swing.border.Border;
-
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.util.Calendar;
+import java.util.Date;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +33,9 @@ public class CrearPublicacion extends GeneralView {
     private JButton createPost, attach;
     ControladorCrearPublicacion controladorCrearPublicacion;
     private String rutaImg;
+    private JSpinner dateSpinner;
+
+    
 
     public CrearPublicacion() {
         initializeComponents();
@@ -59,16 +64,17 @@ public class CrearPublicacion extends GeneralView {
         postTitleLabel.setBounds(500, 100, 200, 50);
 
         postSubtitlelabel = new JLabel();
-        setLabel(postSubtitlelabel, "Subtítulo", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
-        postSubtitlelabel.setBounds(500, 180, 200, 50);
+        setLabel(postSubtitlelabel, "Calendario", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
+        postSubtitlelabel.setBounds(520, 180, 200, 50);
 
         interestLabel = new JLabel();
         setLabel(interestLabel, "Tipo de publicación", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
-        interestLabel.setBounds(500, 260, 200, 50);
+        interestLabel.setBounds(500, 340, 200, 50);
 
+        
         postkindlabel = new JLabel();
         setLabel(postkindlabel, "Tipo de interés", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
-        postkindlabel.setBounds(500, 340, 200, 50);
+        postkindlabel.setBounds(500, 260, 200, 50);
 
         descriptionLabel = new JLabel();
         setLabel(descriptionLabel, "Descripción", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
@@ -77,15 +83,15 @@ public class CrearPublicacion extends GeneralView {
         title = new JTextFieldCustom("ingrese el título de la publicación");
         title.setBounds(500, 150, 200, 25);
 
-        subtitle = new JTextFieldCustom("ingrese el subtítulo de la publicación");
-        subtitle.setBounds(500, 230, 200, 25);
+        // subtitle = new JTextFieldCustom("ingrese el subtítulo de la publicación");
+        // subtitle.setBounds(500, 230, 200, 25);
 
         description = new JTextFieldCustom("Descripción...");
         description.setBounds(80, 450, 360, 100);
 
         interestType = new JComboBox();
         interestType.setBounds(500, 310, 200, 20);
-        interestType.addItem("Recreacción");
+        interestType.addItem("Recreación");
         interestType.addItem("Noticias");
         interestType.addItem("Biología");
         interestType.addItem("Matemáticas");
@@ -126,6 +132,30 @@ public class CrearPublicacion extends GeneralView {
         });
 
         rutaImg = controladorCrearPublicacion.DragAndDropImage(imageLabel, internalView);
+
+       
+
+        // Crear un JSpinner con un SpinnerDateModel
+        Calendar calendar = Calendar.getInstance();
+        Date initialDate = calendar.getTime();
+        SpinnerDateModel model = new SpinnerDateModel(initialDate, null, null, Calendar.DAY_OF_MONTH);
+        dateSpinner = new JSpinner(model);
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
+        dateSpinner.setEditor(editor);
+        dateSpinner.setBounds(500, 230, 200, 25); // x, y, width, height
+
+        // Añadir un ChangeListener para capturar la fecha seleccionada
+        // dateSpinner.addChangeListener(new ChangeListener() {
+        //     @Override
+        //     public void stateChanged(ChangeEvent e) {
+        //         Date selectedDate = (Date) dateSpinner.getValue();
+        //         System.out.println("Fecha seleccionada: " + selectedDate);
+        //     }
+        // });
+
+
+
+        
     }
 
     private void addComponents() {
@@ -137,14 +167,14 @@ public class CrearPublicacion extends GeneralView {
         internalView.add(postkindlabel);
         internalView.add(descriptionLabel);
         internalView.add(title);
-        internalView.add(subtitle);
+       // internalView.add(subtitle);
         internalView.add(description);
         internalView.add(postType);
         internalView.add(interestType);
         internalView.add(createPost);
         internalView.add(attach);
         internalView.add(imageLabel);
-
+        internalView.add(dateSpinner);
         add(internalView);
 
     }
@@ -175,6 +205,10 @@ public class CrearPublicacion extends GeneralView {
 
     public String getPostTypeValue() {
         return postType.getSelectedItem().toString();
+    }
+
+    public String getdate(){
+        return dateSpinner.getValue().toString();
     }
 
     public static void main(String args[]) {
