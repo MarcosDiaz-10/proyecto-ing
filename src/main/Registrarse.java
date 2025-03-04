@@ -157,6 +157,58 @@ public class Registrarse extends GeneralView {
         return (String) school.getSelectedItem();
     }
 
+    public void setFirstName(String data){
+        firstName.setText(data);
+    }
+
+    public void setLastName(String data){
+        lastName.setText(data);
+    }
+
+    public void setSchool(String data){
+
+        switch (data) {
+            case "Biolog\u00EDa":
+                school.setSelectedIndex(0);
+                break;
+            case "Computaci\u00F3n":
+                school.setSelectedIndex(1);
+                break;
+            case "F\u00EDsica":
+                school.setSelectedIndex(2);
+                break;
+            case "Qu\uu00EDmica":
+                school.setSelectedIndex(0);
+                break;
+            case "Matem\u00E1tica":
+                school.setSelectedIndex(1);
+                break;
+            case "Geoqu\uu00EDmica":
+                school.setSelectedIndex(2);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setRol(String data){
+        if (data.equals("Profesor")) {
+            professor.setSelected(true);
+        } else if (data.equals("Estudiante")) {
+            student.setSelected(true);
+        } else if (data.equals("Personal")) {
+            personel.setSelected(true);
+        }
+    }
+
+    public void setPassword(String data){
+        password.setText(data);
+    }
+
+    public void setRepeatPassword(String data){
+        repeatPassword.setText(data);
+    }
+
     public static void main(String args[]) {
 
         System.out.println("Vista Registrarse Inicializada");
