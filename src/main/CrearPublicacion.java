@@ -47,10 +47,10 @@ public class CrearPublicacion extends GeneralView {
         internalView = new JPanel();
 
         createPostLabel = new JLabel();
-        setLabel(createPostLabel, "Crear Publicación", new Font("Arial", Font.BOLD, 24), IngSocColor.black);
+        setLabel(createPostLabel, "Crear Publicaci\u00F3n", new Font("Arial", Font.BOLD, 24), IngSocColor.black);
         createPostLabel.setBounds(300, 20, 300, 50);
 
-        ImageIcon ima1 = new ImageIcon("src/main/camera.png");
+        ImageIcon ima1 = new ImageIcon("camera.png");
         Image image = ima1.getImage();
         Image scaledImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH); // Adjust size as needed
         ima1 = new ImageIcon(scaledImage);
@@ -58,7 +58,7 @@ public class CrearPublicacion extends GeneralView {
         imageLabel.setBounds(120, 100, 250, 200);
 
         postTitleLabel = new JLabel();
-        setLabel(postTitleLabel, "Título de la publicación", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
+        setLabel(postTitleLabel, "T\u00EDtulo de la publicaci\u00F3n", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
         postTitleLabel.setBounds(500, 100, 200, 50);
 
         calendarLabel = new JLabel();
@@ -66,45 +66,45 @@ public class CrearPublicacion extends GeneralView {
         calendarLabel.setBounds(520, 180, 200, 50);
 
         interestLabel = new JLabel();
-        setLabel(interestLabel, "Tipo de publicación", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
+        setLabel(interestLabel, "Tipo de publicaci\u00F3n", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
         interestLabel.setBounds(500, 340, 200, 50);
 
         postkindlabel = new JLabel();
-        setLabel(postkindlabel, "Tipo de interés", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
+        setLabel(postkindlabel, "Tipo de inter\u00E9s", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
         postkindlabel.setBounds(500, 260, 200, 50);
 
         descriptionLabel = new JLabel();
-        setLabel(descriptionLabel, "Descripción", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
+        setLabel(descriptionLabel, "Descripci\u00F3n", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
         descriptionLabel.setBounds(80, 400, 200, 50);
 
-        title = new JTextFieldCustom("ingrese el título de la publicación");
+        title = new JTextFieldCustom("Ingrese el t\u00EDtulo de la publicaci\uu00F3n");
         title.setBounds(500, 150, 200, 25);
 
         // subtitle = new JTextFieldCustom("ingrese el subtítulo de la publicación");
         // subtitle.setBounds(500, 230, 200, 25);
 
-        description = new JTextFieldCustom("Descripción...");
+        description = new JTextFieldCustom("Descripci\u00F3n...");
         description.setBounds(80, 450, 360, 100);
 
         interestType = new JComboBox();
         interestType.setBounds(500, 310, 200, 20);
-        interestType.addItem("Recreación");
+        interestType.addItem("Recreaci\u00F3n");
         interestType.addItem("Noticias");
-        interestType.addItem("Biología");
-        interestType.addItem("Matemáticas");
-        interestType.addItem("Computación y tecnología");
-        interestType.addItem("Física");
-        interestType.addItem("Química");
-        interestType.addItem("Geografía");
+        interestType.addItem("Biolog\u00EDa");
+        interestType.addItem("Matem\u0061ticas");
+        interestType.addItem("Computaci\u00F3n y tecnolog\u00EDa");
+        interestType.addItem("F\u00EDsica");
+        interestType.addItem("Qu\u00EDmica");
+        interestType.addItem("Geograf\u00EDa");
 
         postType = new JComboBox();
         postType.setBounds(500, 390, 200, 20);
         postType.addItem("Taller");
         postType.addItem("Seminario");
-        postType.addItem("Proyecto de investigación");
+        postType.addItem("Proyecto de investigaci\u00F3n");
         postType.addItem("Evento Social");
 
-        createPost = new JButton("Crear Publicación");
+        createPost = new JButton("Crear Publicaci\u00F3n");
         Font font = createPost.getFont();
         Font newFont = font.deriveFont(18f);
         createPost.setFont(newFont);
@@ -188,16 +188,8 @@ public class CrearPublicacion extends GeneralView {
     }
 
     public static void main(String args[]) {
-        // Crear el marco (JFrame)
-        JFrame frame = new JFrame("Crear Publicación");
-        CrearPublicacion crearPublicacion = new CrearPublicacion();
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 700); // Tamaño del marco
-        frame.add(crearPublicacion); // Agregar la vista de crear publicación
-        frame.setVisible(true); // Hacer visible el marco
-
-        System.out.println("Vista crear publicación Inicializada");
+        System.out.println("Vista Crear Publicacion Inicializada");
     }
 
 }
