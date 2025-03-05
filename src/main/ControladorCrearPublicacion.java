@@ -102,7 +102,7 @@ public class ControladorCrearPublicacion {
         String postTypeValue = crearPublicacionView.getPostTypeValue();
         String descriptionValue = crearPublicacionView.getDescription();
         String date = crearPublicacionView.getdate();
-
+        int existImg = 1;
         if (postTitle.length() < 1) {
 
             return 1;
@@ -123,11 +123,11 @@ public class ControladorCrearPublicacion {
         }
         if (rutaImg != null && rutaImg.length() < 1) {
 
-            return 5;
+            existImg = 0;
         }
 
         String informacion = "\n" + postTitle + "\n"
-                + postTypeValue + "\n" + date + "\n" + 1 + "\n" + rutaImg + "\n"
+                + postTypeValue + "\n" + date + "\n" + existImg + "\n" + rutaImg + "\n"
                 + interstTypeValue
                 + '\n' + descriptionValue + "\n" + '-' + '\n';
         /* try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) { */
