@@ -98,7 +98,6 @@ public class ControladorCrearPublicacion {
     public int saveInformationPublication(CrearPublicacion crearPublicacionView, String rutaImg) {
 
         String postTitle = crearPublicacionView.getTitle();
-        String postSubtitle = crearPublicacionView.getSubtitle();
         String interstTypeValue = crearPublicacionView.getInterstTypeValue();
         String postTypeValue = crearPublicacionView.getPostTypeValue();
         String descriptionValue = crearPublicacionView.getDescription();
@@ -109,32 +108,27 @@ public class ControladorCrearPublicacion {
             return 1;
         }
 
-        if (postSubtitle.length() < 1) {
+        if (interstTypeValue.length() < 1) {
 
             return 2;
         }
 
-        if (interstTypeValue.length() < 1) {
+        if (postTypeValue.length() < 1) {
 
             return 3;
         }
-
-        if (postTypeValue.length() < 1) {
+        if (descriptionValue.length() < 1) {
 
             return 4;
         }
-        if (descriptionValue.length() < 1) {
+        if (rutaImg != null && rutaImg.length() < 1) {
 
             return 5;
         }
-        if (rutaImg != null && rutaImg.length() < 1) {
-
-            return 6;
-        }
 
         String informacion = "\n" + postTitle + "\n"
-        + postTypeValue + "\n" + date + "\n" + 1 + "\n" + rutaImg + "\n"
-                + interstTypeValue 
+                + postTypeValue + "\n" + date + "\n" + 1 + "\n" + rutaImg + "\n"
+                + interstTypeValue
                 + '\n' + descriptionValue + "\n" + '-' + '\n';
         /* try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) { */
         try (FileWriter writer = new FileWriter("postDatabase.txt", true)) {

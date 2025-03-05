@@ -175,23 +175,19 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
                             "Error de Titulo", JOptionPane.ERROR_MESSAGE);
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(this, "Tiene que ingresar un Subtitulo",
-                            "Error de Subtitulo", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 3:
                     JOptionPane.showMessageDialog(this, "Tiene que ingresar un Tipo De Interés ",
                             "Error de Tipo De Interés", JOptionPane.ERROR_MESSAGE);
                     break;
-                case 4:
+                case 3:
                     JOptionPane.showMessageDialog(this, "Tiene que ingresar un Tipo De Publicación",
                             "Error de Tipo De publicación", JOptionPane.ERROR_MESSAGE);
 
                     break;
-                case 5:
+                case 4:
                     JOptionPane.showMessageDialog(this, "Tiene que ingresar una Description",
                             "Error de Descripción", JOptionPane.ERROR_MESSAGE);
                     break;
-                case 6:
+                case 5:
                     JOptionPane.showMessageDialog(this, "Tiene que ingresar una Imagen",
                             "Error de Imagen", JOptionPane.ERROR_MESSAGE);
                     break;

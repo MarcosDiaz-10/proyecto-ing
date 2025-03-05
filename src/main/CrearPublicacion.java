@@ -25,8 +25,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class CrearPublicacion extends GeneralView {
-    private JLabel createPostLabel, postTitleLabel, postSubtitlelabel, interestLabel, descriptionLabel,
-            postkindlabel, IngSocLogo, imageLabel;
+    private JLabel createPostLabel, postTitleLabel, calendarLabel, interestLabel, descriptionLabel, postkindlabel,
+            IngSocLogo, imageLabel;
     private JPanel internalView;
     private JTextFieldCustom title, subtitle, description;
     private JComboBox postType, interestType;
@@ -34,8 +34,6 @@ public class CrearPublicacion extends GeneralView {
     ControladorCrearPublicacion controladorCrearPublicacion;
     private String rutaImg;
     private JSpinner dateSpinner;
-
-    
 
     public CrearPublicacion() {
         initializeComponents();
@@ -63,15 +61,14 @@ public class CrearPublicacion extends GeneralView {
         setLabel(postTitleLabel, "Título de la publicación", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
         postTitleLabel.setBounds(500, 100, 200, 50);
 
-        postSubtitlelabel = new JLabel();
-        setLabel(postSubtitlelabel, "Calendario", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
-        postSubtitlelabel.setBounds(520, 180, 200, 50);
+        calendarLabel = new JLabel();
+        setLabel(calendarLabel, "Calendario", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
+        calendarLabel.setBounds(520, 180, 200, 50);
 
         interestLabel = new JLabel();
         setLabel(interestLabel, "Tipo de publicación", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
         interestLabel.setBounds(500, 340, 200, 50);
 
-        
         postkindlabel = new JLabel();
         setLabel(postkindlabel, "Tipo de interés", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
         postkindlabel.setBounds(500, 260, 200, 50);
@@ -133,8 +130,6 @@ public class CrearPublicacion extends GeneralView {
 
         rutaImg = controladorCrearPublicacion.DragAndDropImage(imageLabel, internalView);
 
-       
-
         // Crear un JSpinner con un SpinnerDateModel
         Calendar calendar = Calendar.getInstance();
         Date initialDate = calendar.getTime();
@@ -142,32 +137,17 @@ public class CrearPublicacion extends GeneralView {
         dateSpinner = new JSpinner(model);
         JSpinner.DateEditor editor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
         dateSpinner.setEditor(editor);
-        dateSpinner.setBounds(500, 230, 200, 25); // x, y, width, height
-
-        // Añadir un ChangeListener para capturar la fecha seleccionada
-        // dateSpinner.addChangeListener(new ChangeListener() {
-        //     @Override
-        //     public void stateChanged(ChangeEvent e) {
-        //         Date selectedDate = (Date) dateSpinner.getValue();
-        //         System.out.println("Fecha seleccionada: " + selectedDate);
-        //     }
-        // });
-
-
-
-        
+        dateSpinner.setBounds(500, 230, 200, 25);
     }
 
     private void addComponents() {
         internalView.add(createPostLabel);
-        // internalView.add(imageLabel);
         internalView.add(postTitleLabel);
-        internalView.add(postSubtitlelabel);
+        internalView.add(calendarLabel);
         internalView.add(interestLabel);
         internalView.add(postkindlabel);
         internalView.add(descriptionLabel);
         internalView.add(title);
-       // internalView.add(subtitle);
         internalView.add(description);
         internalView.add(postType);
         internalView.add(interestType);
@@ -191,10 +171,6 @@ public class CrearPublicacion extends GeneralView {
         return title.getText();
     }
 
-    public String getSubtitle() {
-        return subtitle.getText();
-    }
-
     public String getDescription() {
         return description.getText();
     }
@@ -207,7 +183,7 @@ public class CrearPublicacion extends GeneralView {
         return postType.getSelectedItem().toString();
     }
 
-    public String getdate(){
+    public String getdate() {
         return dateSpinner.getValue().toString();
     }
 
