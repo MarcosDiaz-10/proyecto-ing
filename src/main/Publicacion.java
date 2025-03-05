@@ -8,6 +8,7 @@ import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.PushbackReader;
+import java.security.SignatureException;
 import java.io.BufferedReader;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,6 +27,7 @@ public class Publicacion{
     private boolean hasImage;
     private String text;
     private String owner;
+    private String interest;
     private int day,month,year;
     private JLabel  imagen;
 
@@ -59,10 +61,9 @@ public class Publicacion{
             }else{
                 reader.readLine();//Saltamos la linea
             }
-            text = new String();
-            String line = new String();
-            line = reader.readLine();
-            text =  line;
+
+            interest = reader.readLine();
+            text = reader.readLine();
             owner = reader.readLine();
             reader.readLine();//Para eliminar el último "-"
 

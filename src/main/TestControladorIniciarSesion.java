@@ -9,8 +9,8 @@ public class TestControladorIniciarSesion {
         IniciarSesion instanceTestLoginFirstName = new IniciarSesion();
         ControladorIniciarSesion instanceTestControllerFirstName = new ControladorIniciarSesion();
         instanceTestLoginFirstName.setFirstName("TestFirstName");
-        instanceTestControllerFirstName.validateInformation(instanceTestLoginFirstName);
         //Act
+        instanceTestControllerFirstName.validateInformation(instanceTestLoginFirstName);
         String testResult = instanceTestControllerFirstName.getFirstName();
         //Assert
         assertThat (testResult, is("TestFirstName"));
@@ -21,8 +21,8 @@ public class TestControladorIniciarSesion {
         IniciarSesion instanceTestLoginLastName = new IniciarSesion();
         ControladorIniciarSesion instanceTestControllerLastName = new ControladorIniciarSesion();
         instanceTestLoginLastName.setLastName("TestLastName");
-        instanceTestControllerLastName.validateInformation(instanceTestLoginLastName);
         //Act
+        instanceTestControllerLastName.validateInformation(instanceTestLoginLastName);
         String testResult = instanceTestControllerLastName.getLastName();
         //Assert
         assertThat (testResult, is ("TestLastName"));
@@ -33,8 +33,8 @@ public class TestControladorIniciarSesion {
         IniciarSesion instanceTestLoginPassword = new IniciarSesion();
         ControladorIniciarSesion instanceTestControllerLoginPassword = new ControladorIniciarSesion();
         instanceTestLoginPassword.setPassword("TestPassword");
-        instanceTestControllerLoginPassword.validateInformation(instanceTestLoginPassword);
         //Act
+        instanceTestControllerLoginPassword.validateInformation(instanceTestLoginPassword);
         String testResult = instanceTestControllerLoginPassword.getPassword();
         //Assert
         assertThat (testResult, is ("TestPassword"));

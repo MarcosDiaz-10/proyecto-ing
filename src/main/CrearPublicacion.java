@@ -187,6 +187,26 @@ public class CrearPublicacion extends GeneralView {
         return dateSpinner.getValue().toString();
     }
 
+    public void setTitle (String data) {
+        title.setText(data);
+    }
+
+    public void setInterstTypeValue (String data) {
+        interestType.setSelectedItem(data);
+    } 
+
+    public void setPostTypeValue (String data) {
+        postType.setSelectedItem(data);
+    }
+
+    public void setDescription (String data) {
+        description.setText(data);
+    }
+
+    public void setDate (String data) {
+        dateSpinner.setValue(data);
+    } 
+
     public static void main(String args[]) {
 
         System.out.println("Vista Crear Publicacion Inicializada");

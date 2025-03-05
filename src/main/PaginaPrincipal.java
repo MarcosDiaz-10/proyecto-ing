@@ -240,7 +240,7 @@ public class PaginaPrincipal extends GeneralView{
 
             BufferedReader auxDateReader = new BufferedReader(new FileReader("postDatabase.txt"));
             
-            String line = auxDateReader.readLine();
+            String line = auxDateReader.readLine();//Tomatmos la clasificacion
             String classificationDate = line;
             auxDateReader.readLine(); //Leemos el título de la primera
             while(line != null){
@@ -270,7 +270,7 @@ public class PaginaPrincipal extends GeneralView{
                     }
                 }
 
-                for(int i=0;i<5;i++){
+                for(int i=0;i<6;i++){
                    auxDateReader.readLine(); //Leemos todo hasta la siguiente clasificacion
                 }
                 classificationDate = auxDateReader.readLine();//Agarramos la classificacion

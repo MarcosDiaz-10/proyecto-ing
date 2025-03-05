@@ -3,3 +3,8 @@ admin-admin-123-Biolog�a-Profesor
 marcos-marcos-123-Computación-Estudiante
 Amanda-Mendoza-Contrase�a-Geoqu�mica-Estudiante
 admin-admin-1234-Biolog�a-Profesor
+test-test-test-Biología-Estudiante
+test-test-test-Biología-Estudiante
+test-test-test-Biología-Estudiante
+test-test-test-Biología-Estudiante
+test-test-test-Biología-Estudiante

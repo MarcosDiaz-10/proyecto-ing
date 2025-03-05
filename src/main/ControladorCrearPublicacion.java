@@ -31,6 +31,11 @@ import java.util.List;
 
 public class ControladorCrearPublicacion {
     private String rutaImg;
+    private String postTitle;
+    private String interstTypeValue;
+    private String postTypeValue;
+    private String descriptionValue;
+    private String date;
 
     public ControladorCrearPublicacion() {
 
@@ -97,11 +102,11 @@ public class ControladorCrearPublicacion {
 
     public int saveInformationPublication(CrearPublicacion crearPublicacionView, String rutaImg) {
 
-        String postTitle = crearPublicacionView.getTitle();
-        String interstTypeValue = crearPublicacionView.getInterstTypeValue();
-        String postTypeValue = crearPublicacionView.getPostTypeValue();
-        String descriptionValue = crearPublicacionView.getDescription();
-        String date = crearPublicacionView.getdate();
+        postTitle = crearPublicacionView.getTitle();
+        interstTypeValue = crearPublicacionView.getInterstTypeValue();
+        postTypeValue = crearPublicacionView.getPostTypeValue();
+        descriptionValue = crearPublicacionView.getDescription();
+        date = crearPublicacionView.getdate();
         int existImg = 1;
         if (postTitle.length() < 1) {
 
@@ -109,7 +114,6 @@ public class ControladorCrearPublicacion {
         }
 
         if (interstTypeValue.length() < 1) {
-
             return 2;
         }
 
@@ -198,6 +202,25 @@ public class ControladorCrearPublicacion {
         return nombre.endsWith(".jpg") || nombre.endsWith(".jpeg") ||
                 nombre.endsWith(".png") || nombre.endsWith(".gif") ||
                 nombre.endsWith(".bmp");
+    }
+
+    public void setTitle (String data) {
+        postTitle = data;
+    }
+
+    public void setInterstTypeValue (String data) {
+        interstTypeValue = data;
+    }
+
+    public void setPostTypeValue (String data) {
+        postTypeValue = data;
+    }
+
+    public void setDescription (String data) {
+        descriptionValue = data;
+    }
+    public void setDate (String data) {
+        date = data;
     }
 
     public static void main(String args[]) {
