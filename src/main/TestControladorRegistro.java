@@ -7,7 +7,9 @@ public class TestControladorRegistro {
     public void testFirstName(){
         //Arrange
         Registrarse instanceTestRegisterFirstName = new Registrarse();
+        ControladorRegistrarse instanceTestControllerFirstName = new ControladorRegistrarse();
         instanceTestRegisterFirstName.setFirstName("PruebaFirstName");
+        instanceTestControllerFirstName.saveInformation(instanceTestRegisterFirstName);
         //Act
         String testResult = instanceTestRegisterFirstName.getFirstName();
         //Assert
@@ -17,9 +19,11 @@ public class TestControladorRegistro {
     public void testLastName(){
         //Arrange
         Registrarse instanceTestTegisterLastName = new Registrarse();
+        ControladorRegistrarse instanceTestControllerLastName = new ControladorRegistrarse();
         instanceTestTegisterLastName.setLastName("PruebaLastName");
+        instanceTestControllerLastName.saveInformation(instanceTestTegisterLastName);
         //Act
-        String testResult = instanceTestTegisterLastName.getLastName();
+        String testResult = instanceTestControllerLastName.getLastName();
         //Assert
         assertThat (testResult, is ("PruebaLastName"));
     }
@@ -27,9 +31,11 @@ public class TestControladorRegistro {
     public void testRole(){
         //Arrange
         Registrarse instanceTestRegisterRol = new Registrarse();
+        ControladorRegistrarse instanceTestControllerRol = new ControladorRegistrarse();
         instanceTestRegisterRol.setRol("Estudiante");
+        instanceTestControllerRol.saveInformation(instanceTestRegisterRol);
         //Act
-        String testResult = instanceTestRegisterRol.getSelectedRole();
+        String testResult = instanceTestControllerRol.getRol();
         //Assert
         assertThat (testResult, is ("Estudiante"));
     }
@@ -37,31 +43,42 @@ public class TestControladorRegistro {
     public void testPassword(){
         //Arrange
         Registrarse instanceTestRegisterPassword = new Registrarse();
+        ControladorRegistrarse instanceTestControllerPassword = new ControladorRegistrarse();
         instanceTestRegisterPassword.setPassword("PruebaPassword");
+        instanceTestControllerPassword.saveInformation(instanceTestRegisterPassword);
         //Act
-        String testResult = instanceTestRegisterPassword.getPassword();
+        String testResult = instanceTestControllerPassword.getPassword();
         //Assert
         assertThat (testResult, is ("PruebaPassword"));
     }
+    @Test
     public void testRepeatPassword(){
         //Arrange
         Registrarse instanceTestRegisterRepeatPassword = new Registrarse();
+        ControladorRegistrarse instanceTestControllerRepeatPassword = new ControladorRegistrarse();
         instanceTestRegisterRepeatPassword.setRepeatPassword("PruebaRepeatassword");
+        instanceTestControllerRepeatPassword.saveInformation(instanceTestRegisterRepeatPassword);
         //Act
-        String testResult = instanceTestRegisterRepeatPassword.getRepeatPassword();
+        String testResult = instanceTestControllerRepeatPassword.getRepeatPassword();
         //Assert
         assertThat (testResult, is ("PruebaRepeatassword"));
     }
     @Test
-    public void testPasswordMatch(){
+    public void testRegister(){
         //Arrange
         Registrarse instanceTestRegisterMatchPasswords = new Registrarse();
-        instanceTestRegisterMatchPasswords.setPassword("TestMatchPasswords");
-        instanceTestRegisterMatchPasswords.setRepeatPassword("TestMatchPasswords");
+        ControladorRegistrarse instanceTestControllerMatchPasswords = new ControladorRegistrarse();
+        instanceTestRegisterMatchPasswords.setFirstName("test");
+        instanceTestRegisterMatchPasswords.setLastName("test");
+        instanceTestRegisterMatchPasswords.setSchool("Biolog\u00EDa");
+        instanceTestRegisterMatchPasswords.setRol("Estudiante");
+        instanceTestRegisterMatchPasswords.setPassword("test");
+        instanceTestRegisterMatchPasswords.setRepeatPassword("test");
+
         //Act
-        boolean testResult = instanceTestRegisterMatchPasswords.getPassword().equals(instanceTestRegisterMatchPasswords.getRepeatPassword());
+        int testResult = instanceTestControllerMatchPasswords.saveInformation(instanceTestRegisterMatchPasswords);
         //Assert
-        assertThat (testResult, is ((true)));
+        assertThat (testResult, is (0));
     }
 }
 

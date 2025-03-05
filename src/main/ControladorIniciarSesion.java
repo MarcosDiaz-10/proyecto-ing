@@ -21,6 +21,10 @@ import java.awt.*;
 
 public class ControladorIniciarSesion {
 
+    private String firstName;
+    private String lastName;
+    private String password;
+
     public ControladorIniciarSesion() {
 
     }
@@ -29,19 +33,19 @@ public class ControladorIniciarSesion {
 
         Boolean exist = false;
 
-        String Name = vistaIniciarSesion.getFirstName();
-        String lastname = vistaIniciarSesion.getLastName();
-        String password_ = vistaIniciarSesion.getPassword();
+        firstName = vistaIniciarSesion.getFirstName();
+        lastName = vistaIniciarSesion.getLastName();
+        password = vistaIniciarSesion.getPassword();
 
-        if (Name.length() < 1) {
+        if (firstName.length() < 1) {
             return 1;
         }
 
-        if (lastname.length() < 1) {
+        if (lastName.length() < 1) {
             return 2;
         }
 
-        if (password_.length() < 1) {
+        if (password.length() < 1) {
             return 3;
         }
         // String ruta = "src/DB/database.txt";
@@ -55,9 +59,9 @@ public class ControladorIniciarSesion {
                 // una, porque si no, MAU y mau sería dos usuarios "distintos al registrarse"
                 // pero no al ingresar
                 // Esto sólo comprueba si la linea contiene el nombre?
-                if (linea.toLowerCase().contains(Name.toLowerCase())
-                        && linea.toLowerCase().contains(lastname.toLowerCase())
-                        && linea.toLowerCase().contains(password_.toLowerCase())) {
+                if (linea.toLowerCase().contains(firstName.toLowerCase())
+                        && linea.toLowerCase().contains(lastName.toLowerCase())
+                        && linea.toLowerCase().contains(password.toLowerCase())) {
                     exist = true;
                     break;
                 }
@@ -73,6 +77,30 @@ public class ControladorIniciarSesion {
             return 0;
         }
 
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setFirstName(String data){
+        firstName = data;
+    }
+
+    public void setLastName(String data){
+        lastName = data;
+    }
+
+    public void setPassword(String data){
+        password = data;
     }
 
     public static void main(String args[]) {

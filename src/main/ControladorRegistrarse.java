@@ -24,18 +24,25 @@ import java.awt.*;
 
 public class ControladorRegistrarse{
 
+    private String firstNameString;
+    private String lastNameString;
+    private String rolString;
+    private String passwordString;
+    private String repeatPasswordString;
+    private String schoolString;
+
     public ControladorRegistrarse(){
 
     }
 
     public int saveInformation(Registrarse registerView){
 
-        String firstNameString = registerView.getFirstName();
-        String lastNameString = registerView.getLastName();
-        //Esto quizás se pueda hacer algo como JButtonGroup.getSElection() para obtener el botón directamente y ahorrarnos el método
-        String rolString = registerView.getSelectedRole();
-        String passwordString = registerView.getPassword();
-        String repeatPasswordString = registerView.getRepeatPassword();
+        firstNameString = registerView.getFirstName();
+        lastNameString = registerView.getLastName();
+        rolString = registerView.getSelectedRole();
+        passwordString = registerView.getPassword();
+        repeatPasswordString = registerView.getRepeatPassword();
+        schoolString = registerView.getSchool();
 
         if (firstNameString.length() < 1) {
             return 1;
@@ -56,7 +63,7 @@ public class ControladorRegistrarse{
             return 5;
         }
 
-        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-" + registerView.getSchool() + "-" + rolString + '\n';
+        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-" + schoolString + "-" + rolString + '\n';
         /*try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) {*/
         try (FileWriter writer = new FileWriter("database.txt", true)) {
             writer.write(informacion);
@@ -66,6 +73,31 @@ public class ControladorRegistrarse{
         }
 
     }
+
+    public String getRol() {
+        return rolString;
+    }
+
+    public String getFirstName() {
+        return firstNameString;
+    }
+
+    public String getLastName() {
+        return lastNameString;
+    }
+
+    public String getPassword() {
+        return passwordString;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPasswordString;
+    }
+
+    public String getSchool() {
+        return schoolString;
+    }
+
    
     public static void main(String args[]){
         System.out.println("ControladorInicarSesion inicializado");
