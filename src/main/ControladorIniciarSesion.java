@@ -49,7 +49,7 @@ public class ControladorIniciarSesion {
             return 3;
         }
         // String ruta = "src/DB/database.txt";
-        String ruta = "database.txt";
+        String ruta = "src/main/database.txt";
 
         try (Scanner scanner = new Scanner(new File(ruta))) {
             // Leer el archivo línea por línea
