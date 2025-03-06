@@ -1,8 +1,12 @@
+package controllers;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 
 import org.w3c.dom.events.MouseEvent;
+
+import views.CrearPublicacion;
 
 import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
@@ -126,12 +130,12 @@ public class ControladorCrearPublicacion {
             existImg = 0;
         }
 
-        String informacion = "\n" + postTitle + "\n"
-                + postTypeValue + "\n" + date + "\n" + existImg + "\n" + rutaImg + "\n"
+        String informacion = "\n" + postTypeValue + "\n" + postTitle + "\n"
+                + date + "\n" + existImg + "\n" + rutaImg + "\n"
                 + interstTypeValue
                 + '\n' + descriptionValue + "\n" + '-' + '\n';
         /* try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) { */
-        try (FileWriter writer = new FileWriter("postDatabase.txt", true)) {
+        try (FileWriter writer = new FileWriter("src/data/postDatabase.txt", true)) {
             writer.write(informacion);
 
             return 0;
@@ -165,7 +169,7 @@ public class ControladorCrearPublicacion {
         }
 
         if (archivo != null) {
-            String rutaDestino = "";
+            String rutaDestino = "src/data";
 
             try {
                 Path origin = archivo.toPath();

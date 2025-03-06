@@ -3,6 +3,17 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
+import controllers.ControladorCrearPublicacion;
+import controllers.ControladorIniciarSesion;
+import controllers.ControladorRegistrarse;
+import utils.IngSocColor;
+import views.CrearPublicacion;
+import views.GeneralView;
+import views.IniciarSesion;
+import views.PaginaPrincipal;
+import views.Registrarse;
+
 import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
@@ -30,7 +41,7 @@ public class MainWindow extends JFrame implements ActionListener, ChangeListener
 
     public MainWindow() {
 
-        setIconImage(new ImageIcon("zlogo2redondeado.png").getImage());
+        setIconImage(new ImageIcon("src/assets/zlogo2redondeado.png").getImage());
 
         ingSocColor = new IngSocColor();
 

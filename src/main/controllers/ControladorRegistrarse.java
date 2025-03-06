@@ -1,8 +1,12 @@
+package controllers;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 
 import org.w3c.dom.events.MouseEvent;
+
+import views.Registrarse;
 
 import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
@@ -21,8 +25,7 @@ import java.awt.event.ActionEvent; // Importa la clase ActionEvent
 import javax.swing.*;
 import java.awt.*;
 
-
-public class ControladorRegistrarse{
+public class ControladorRegistrarse {
 
     private String firstNameString;
     private String lastNameString;
@@ -31,11 +34,11 @@ public class ControladorRegistrarse{
     private String repeatPasswordString;
     private String schoolString;
 
-    public ControladorRegistrarse(){
+    public ControladorRegistrarse() {
 
     }
 
-    public int saveInformation(Registrarse registerView){
+    public int saveInformation(Registrarse registerView) {
 
         firstNameString = registerView.getFirstName();
         lastNameString = registerView.getLastName();
@@ -63,9 +66,10 @@ public class ControladorRegistrarse{
             return 5;
         }
 
-        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-" + schoolString + "-" + rolString + '\n';
-        /*try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) {*/
-        try (FileWriter writer = new FileWriter("database.txt", true)) {
+        String informacion = firstNameString + "-" + lastNameString + "-" + passwordString + "-" + schoolString + "-"
+                + rolString + '\n';
+        /* try (FileWriter writer = new FileWriter("/src/DB/database.txt", true)) { */
+        try (FileWriter writer = new FileWriter("src/data/Database.txt", true)) {
             writer.write(informacion);
             return 0;
         } catch (IOException ex) {
@@ -98,8 +102,7 @@ public class ControladorRegistrarse{
         return schoolString;
     }
 
-   
-    public static void main(String args[]){
+    public static void main(String args[]) {
         System.out.println("ControladorInicarSesion inicializado");
     }
 

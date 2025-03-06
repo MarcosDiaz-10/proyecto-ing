@@ -1,3 +1,4 @@
+package models;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,27 +18,27 @@ import java.awt.event.MouseEvent; // Importa la clase MouseEvent
 import java.io.FileReader;
 import java.io.IOException;
 import java.awt.Image; // Importa la clase Image
-import javax.swing.ImageIcon; 
+import javax.swing.ImageIcon;
 
-public class Publicacion{
+public class Publicacion {
 
     private String classification;
     private String title;
     private boolean hasImage;
     private String text;
     private String owner;
-    private int day,month,year;
-    private JLabel  imagen;
+    private int day, month, year;
+    private JLabel imagen;
 
-    public Publicacion(BufferedReader reader){
+    public Publicacion(BufferedReader reader) {
 
         title = new String();
-        text =  new String();
+        text = new String();
         classification = new String();
 
         try {
-            classification = reader.readLine() ;
-            title =  reader.readLine() ;
+            classification = reader.readLine();
+            title = reader.readLine();
 
             String[] dateAux = reader.readLine().split("-");
 
@@ -45,77 +46,74 @@ public class Publicacion{
             month = Integer.parseInt(dateAux[1]);
             year = Integer.parseInt(dateAux[2]);
 
-    
             hasImage = "1".equals(reader.readLine());
 
-            if(hasImage){
+            if (hasImage) {
                 ImageIcon postImage = new ImageIcon(reader.readLine());
 
                 Image postImageRedimension = postImage.getImage();
-                postImageRedimension = postImageRedimension.getScaledInstance(325, 325, postImageRedimension.SCALE_SMOOTH);
+                postImageRedimension = postImageRedimension.getScaledInstance(325, 325,
+                        postImageRedimension.SCALE_SMOOTH);
                 postImage = new ImageIcon(postImageRedimension);
 
                 imagen = new JLabel(postImage);
-            }else{
-                reader.readLine();//Saltamos la linea
+            } else {
+                reader.readLine();// Saltamos la linea
             }
             text = new String();
             String line = new String();
             line = reader.readLine();
-            text =  line;
+            text = line;
             owner = reader.readLine();
-            reader.readLine();//Para eliminar el último "-"
-
+            reader.readLine();// Para eliminar el último "-"
 
         } catch (IOException e) {
             System.out.println("Error al leer el archivo desde Publicacion");
         }
     }
 
-    public String getClassification(){
+    public String getClassification() {
         return classification;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
-    public String getText(){
+    public String getText() {
         return text;
     }
 
-    public boolean hasImage(){
+    public boolean hasImage() {
         return hasImage;
     }
 
-    public JLabel getImage(){
+    public JLabel getImage() {
         return imagen;
     }
 
-    public String getOwner(){
+    public String getOwner() {
         return owner;
     }
 
-    public int getDay(){
+    public int getDay() {
         return day;
     }
 
-    public int getMonth(){
+    public int getMonth() {
         return month;
     }
 
-    public int getYear(){
+    public int getYear() {
         return year;
     }
 
-    public String getDate(){
-        return day+"-"+month+"-"+year;
+    public String getDate() {
+        return day + "-" + month + "-" + year;
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         System.out.println("Publicacion inicializada");
-    } 
-
-    
+    }
 
 }

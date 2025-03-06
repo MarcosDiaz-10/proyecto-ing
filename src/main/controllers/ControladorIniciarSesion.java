@@ -1,8 +1,12 @@
+package controllers;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 
 import org.w3c.dom.events.MouseEvent;
+
+import views.IniciarSesion;
 
 import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
@@ -49,19 +53,22 @@ public class ControladorIniciarSesion {
             return 3;
         }
         // String ruta = "src/DB/database.txt";
-        String ruta = "database.txt";
+        String ruta = "src/data/Database.txt";
 
         try (Scanner scanner = new Scanner(new File(ruta))) {
             // Leer el archivo línea por línea
+
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine();
                 // Creo que, como muchas páginas, deberiamos guardarlo todo en Mayúsculas de
                 // una, porque si no, MAU y mau sería dos usuarios "distintos al registrarse"
                 // pero no al ingresar
                 // Esto sólo comprueba si la linea contiene el nombre?
-                if (linea.toLowerCase().contains(firstName.toLowerCase())
-                        && linea.toLowerCase().contains(lastName.toLowerCase())
-                        && linea.toLowerCase().contains(password.toLowerCase())) {
+                String[] datos = linea.split("-");
+
+                if (datos[0].toLowerCase().contains(firstName.toLowerCase())
+                        && datos[1].toLowerCase().contains(lastName.toLowerCase())
+                        && datos[2].toLowerCase().contains(password.toLowerCase())) {
                     exist = true;
                     break;
                 }
@@ -91,15 +98,15 @@ public class ControladorIniciarSesion {
         return password;
     }
 
-    public void setFirstName(String data){
+    public void setFirstName(String data) {
         firstName = data;
     }
 
-    public void setLastName(String data){
+    public void setLastName(String data) {
         lastName = data;
     }
 
-    public void setPassword(String data){
+    public void setPassword(String data) {
         password = data;
     }
 

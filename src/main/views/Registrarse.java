@@ -1,4 +1,9 @@
+package views;
+
 import javax.swing.*;
+
+import utils.IngSocColor;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -89,7 +94,7 @@ public class Registrarse extends GeneralView {
         register.setForeground(IngSocColor.white);
         register.setBounds(160, 510, 423, 30);
 
-        ImageIcon IngSocIcon = new ImageIcon("zlogo2redondeado.png");
+        ImageIcon IngSocIcon = new ImageIcon("src/data/zlogo2redondeado.png");
         Image IngSocRedimension = IngSocIcon.getImage();
         IngSocRedimension = IngSocRedimension.getScaledInstance(141, 120, Image.SCALE_SMOOTH);
         IngSocIcon = new ImageIcon(IngSocRedimension);
@@ -155,15 +160,15 @@ public class Registrarse extends GeneralView {
         return (String) school.getSelectedItem();
     }
 
-    public void setFirstName(String data){
+    public void setFirstName(String data) {
         firstName.setText(data);
     }
 
-    public void setLastName(String data){
+    public void setLastName(String data) {
         lastName.setText(data);
     }
 
-    public void setSchool(String data){
+    public void setSchool(String data) {
 
         switch (data) {
             case "Biolog\u00EDa":
@@ -189,7 +194,7 @@ public class Registrarse extends GeneralView {
         }
     }
 
-    public void setRol(String data){
+    public void setRol(String data) {
         if (data.equals("Profesor")) {
             professor.setSelected(true);
         } else if (data.equals("Estudiante")) {
@@ -199,11 +204,11 @@ public class Registrarse extends GeneralView {
         }
     }
 
-    public void setPassword(String data){
+    public void setPassword(String data) {
         password.setText(data);
     }
 
-    public void setRepeatPassword(String data){
+    public void setRepeatPassword(String data) {
         repeatPassword.setText(data);
     }
 

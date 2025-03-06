@@ -1,4 +1,7 @@
 import org.junit.Test;
+
+import models.Publicacion;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -13,119 +16,127 @@ import java.io.FileReader;
 public class TestPublicacion {
 
     @Test
-    public void testClasificacion(){
+    public void testClasificacion() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
 
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getClassification(), is("TestTipo"));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testTitulo(){
+    public void testTitulo() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getTitle(), is("TestTitulo"));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testTexto(){
+    public void testTexto() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
             String texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent accumsan lacinia ante, in consectetur sem tincidunt vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec finibus, odio id placerat porttitor, nisl magna egestas lorem, at hendrerit quam massa sed mauris. In eu sapien ultricies, eleifend lectus eget, semper eros. Fusce ac ultrices purus. In consectetur dolor sit amet ligula pellentesque, quis dignissim velit pharetra. Duis hendrerit hendrerit congue. Nunc ut massa eget ante maximus lacinia. Donec lacus dolor, efficitur eget lorem ac, porta placerat leo. Aliquam blandit augue erat, varius eleifend turpis euismod eget. Nunc non enim id massa sollicitudin ultricies. Donec sed tincidunt dolor. Vivamus lobortis, dui in efficitur scelerisque, velit purus euismod dolor, vel tempor lacus turpis ac risus. Sed lacus massa, tempus sit amet eros eu, sollicitudin imperdiet tellus. Sed tincidunt venenatis magna, et porta dolor posuere nec.";
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getText(), is(texto));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testImagen(){
+    public void testImagen() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.hasImage(), is(false));
         } catch (Exception e) {
-            fail("Excepción lanzada: " + e.getMessage());        
+            fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testDueno(){
+    public void testDueno() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getOwner(), is("TestNombre"));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testDia(){
+    public void testDia() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getDay(), is(1));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testMes(){
+    public void testMes() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getMonth(), is(6));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testAno(){
+    public void testAno() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getYear(), is(2000));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
         }
     }
+
     @Test
-    public void testFecha(){
+    public void testFecha() {
         try {
-            //Arrange
+            // Arrange
             BufferedReader reader = new BufferedReader(new FileReader("src/test/testPostDatabase.txt"));
-            //Act
+            // Act
             Publicacion testPublicacion = new Publicacion(reader);
-            //Assert
+            // Assert
             assertThat(testPublicacion.getDate(), is("1-6-2000"));
         } catch (Exception e) {
             fail("Excepción lanzada: " + e.getMessage());
@@ -133,11 +144,12 @@ public class TestPublicacion {
     }
 }
 
-
-/* Cómo es la vuelta:
+/*
+ * Cómo es la vuelta:
  * Creamos los parametros de un texto, simulando una publicación creada
  * Pasamos ese texto a Publicacion dentro de un Buffered Reader
- * Creamos metodos que chequeen que cada atributo de Publicacion es correspondido por el elemento del texto descrito
+ * Creamos metodos que chequeen que cada atributo de Publicacion es
+ * correspondido por el elemento del texto descrito
  * Y ya
  * 
  * 

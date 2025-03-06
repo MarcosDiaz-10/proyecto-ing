@@ -1,3 +1,5 @@
+package views;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +16,10 @@ import java.awt.image.BufferedImage;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import controllers.ControladorCrearPublicacion;
+import utils.IngSocColor;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.io.File;
@@ -22,6 +28,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class CrearPublicacion extends GeneralView {
@@ -50,7 +57,7 @@ public class CrearPublicacion extends GeneralView {
         setLabel(createPostLabel, "Crear Publicaci\u00F3n", new Font("Arial", Font.BOLD, 24), IngSocColor.black);
         createPostLabel.setBounds(300, 20, 300, 50);
 
-        ImageIcon ima1 = new ImageIcon("camera.png");
+        ImageIcon ima1 = new ImageIcon("src/assets/camera.png");
         Image image = ima1.getImage();
         Image scaledImage = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH); // Adjust size as needed
         ima1 = new ImageIcon(scaledImage);
@@ -58,7 +65,8 @@ public class CrearPublicacion extends GeneralView {
         imageLabel.setBounds(120, 100, 250, 200);
 
         postTitleLabel = new JLabel();
-        setLabel(postTitleLabel, "T\u00EDtulo de la publicaci\u00F3n", new Font("Arial", Font.BOLD, 16), IngSocColor.black);
+        setLabel(postTitleLabel, "T\u00EDtulo de la publicaci\u00F3n", new Font("Arial", Font.BOLD, 16),
+                IngSocColor.black);
         postTitleLabel.setBounds(500, 100, 200, 50);
 
         calendarLabel = new JLabel();
@@ -184,7 +192,10 @@ public class CrearPublicacion extends GeneralView {
     }
 
     public String getdate() {
-        return dateSpinner.getValue().toString();
+
+        SimpleDateFormat formateo = new SimpleDateFormat("dd-MM-yyyy");
+
+        return formateo.format(dateSpinner.getValue());
     }
 
     public static void main(String args[]) {

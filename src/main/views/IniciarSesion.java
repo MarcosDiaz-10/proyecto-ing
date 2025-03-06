@@ -1,7 +1,12 @@
+package views;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
+
+import utils.IngSocColor;
+
 import javax.swing.event.ChangeEvent; // Importa la clase ChangeEvent
 import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
@@ -75,7 +80,7 @@ public class IniciarSesion extends GeneralView {
         login.setForeground(IngSocColor.white);
         login.setBounds(160, 240, 423, 30);
 
-        ImageIcon IngSocIcon = new ImageIcon("zlogo2redondeado.png");
+        ImageIcon IngSocIcon = new ImageIcon("src/assets/zlogo2redondeado.png");
         // Para escalar
         Image IngSocRedimension = IngSocIcon.getImage();
         IngSocRedimension = IngSocRedimension.getScaledInstance(283, 240, IngSocRedimension.SCALE_SMOOTH);
@@ -129,15 +134,15 @@ public class IniciarSesion extends GeneralView {
         return password.getText();
     }
 
-    public void setFirstName(String data){
+    public void setFirstName(String data) {
         firstName.setText(data);
     }
 
-    public void setLastName(String data){
+    public void setLastName(String data) {
         lastName.setText(data);
     }
 
-    public void setPassword(String data){
+    public void setPassword(String data) {
         password.setText(data);
     }
 

@@ -1,3 +1,5 @@
+package views;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
@@ -15,7 +17,6 @@ import java.awt.event.ActionEvent; // Importa la clase ActionEvent
 
 import javax.swing.*;
 import java.awt.*;
-
 
 public class JTextFieldCustom extends JTextField {
     private String placeholder;
@@ -36,7 +37,7 @@ public class JTextFieldCustom extends JTextField {
         }
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         System.out.println("Custom Text Field inicializado");
     }
 
