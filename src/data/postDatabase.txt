@@ -1,7 +1,18 @@
+  
+Bienvenido a IngSoc
+04-04-1984
+1
+zlogo3.png
+ 
+Bienvenido Camarada, a la p&aacute;gina de nuestro l&iacute;der el Gran Hermano, donde compartimos los Eventos Sociales que nos acontecen, recuerda compartirlo todo con el Gran Hermano, y recuerda que &eacute;l siempre nos vigila
+Gran Hermano
+-
 Publicaci&oacute;n
 Titulo1
 01-03-2025
 1
+lorem-picsum.jpg
+Idk man
 src/data/lorem-picsum.jpg
 abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcD abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd abcd
 Mauricio
@@ -19,6 +30,7 @@ titulo3
 17-03-2025
 0
 emptyImage
+muy interesante
 parangana cutirimicuaro
 Marcos
 -
@@ -35,6 +47,7 @@ These chicks
 2-04-2025
 0
 emptyImage
+sin duda alguna
 you just wanna se a n backwards dont you? adat how come up we don't rap on pro tools Dejame decirte que esto lleva bastante tiempo porque lograr que tu puedas escribir lo que quieras y el espacio se adapte automaticamente al texto que tienes de manera dinamica no es nada facil, ademas, no puedes poner tildes, que cosas
 Eminem
 -

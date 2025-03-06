@@ -9,6 +9,7 @@ import java.awt.event.ActionListener; // Importa la clase ActionListener
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.PushbackReader;
+import java.security.SignatureException;
 import java.io.BufferedReader;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,6 +28,7 @@ public class Publicacion {
     private boolean hasImage;
     private String text;
     private String owner;
+    private String interest;
     private int day, month, year;
     private JLabel imagen;
 

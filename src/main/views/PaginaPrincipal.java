@@ -269,7 +269,7 @@ public class PaginaPrincipal extends GeneralView {
                     }
                 }
 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 6; i++) {
                     auxDateReader.readLine(); // Leemos todo hasta la siguiente clasificacion
                 }
                 classificationDate = auxDateReader.readLine();// Agarramos la classificacion

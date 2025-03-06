@@ -30,3 +30,10 @@
 ### Modelo de implementación
 
 Se usó la librería Java.Swing y para correrlo necesita ejecutar el archivo mainview y de allí podrá navegar entre las distintas pantallas
+
+### Modelo de Pruebas
+
+- Prueba de Controlador Registrarse
+- Prueba de Controlador Inicar Sesión
+- Prueba de Controlador Crear Publicación
+- Prueba de Publicación
